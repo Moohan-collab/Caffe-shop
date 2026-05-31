@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Qahwa Gees | Xafiiska Kalluunka</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --espresso: #1a0a00;
+      --roast:    #3b1f0a;
+      --caramel:  #c47d2e;
+      --cream:    #f5ead7;
+      --milk:     #fdf6ec;
+      --smoke:    #8a7560;
+      --gold:     #d4a853;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--espresso);
+      color: var(--cream);
+      font-family: 'Lato', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: linear-gradient(to bottom, rgba(26,10,0,.92), transparent);
+      backdrop-filter: blur(4px);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 900;
+      color: var(--gold); letter-spacing: 2px;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a {
+      color: var(--cream); text-decoration: none;
+      font-size: .85rem; letter-spacing: 1.5px; text-transform: uppercase;
+      font-weight: 700; transition: color .3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-btn {
+      background: var(--caramel); color: var(--espresso) !important;
+      padding: .5rem 1.4rem; border-radius: 2px;
+      font-weight: 700 !important; transition: background .3s !important;
+    }
+    .nav-btn:hover { background: var(--gold) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; text-align: center;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 60%, rgba(196,125,46,.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 30%, rgba(212,168,83,.12) 0%, transparent 55%),
+        linear-gradient(160deg, #1a0a00 0%, #2e1508 50%, #1a0a00 100%);
+    }
+    /* animated steam rings */
+    .steam { position: absolute; bottom: 38%; left: 50%; transform: translateX(-50%); }
+    .steam span {
+      display: block; width: 6px; height: 6px;
+      border-radius: 50%; background: rgba(245,234,215,.25);
+      margin: 0 auto 4px;
+      animation: rise 3s ease-in infinite;
+    }
+    .steam span:nth-child(2) { animation-delay: .6s; width:5px; height:5px; }
+    .steam span:nth-child(3) { animation-delay: 1.2s; width:4px; height:4px; }
+    @keyframes rise {
+      0%   { opacity:0; transform: translateY(0) scale(1); }
+      40%  { opacity:.7; }
+      100% { opacity:0; transform: translateY(-70px) scale(2.5); }
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 780px; padding: 2rem; }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: .72rem; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--caramel); margin-bottom: 1.4rem;
+      border-top: 1px solid var(--caramel); border-bottom: 1px solid var(--caramel);
+      padding: .35rem 1.2rem;
+      animation: fadeUp .8s .2s both;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 9vw, 7rem);
+      font-weight: 900; line-height: 1;
+      color: var(--milk);
+      animation: fadeUp .9s .4s both;
+    }
+    .hero-title em { color: var(--gold); font-style: italic; }
+    .hero-sub {
+      margin: 1.5rem auto 2.5rem;
+      max-width: 480px; font-size: 1rem;
+      color: var(--smoke); line-height: 1.8;
+      animation: fadeUp .9s .6s both;
+    }
+    .hero-actions {
+      display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp .9s .8s both;
+    }
+    .btn-primary {
+      background: var(--caramel); color: var(--espresso);
+      padding: .9rem 2.4rem; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase; font-size: .8rem;
+      text-decoration: none; border-radius: 2px;
+      transition: background .3s, transform .2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
+    .btn-outline {
+      border: 1.5px solid var(--smoke); color: var(--cream);
+      padding: .9rem 2.4rem; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase; font-size: .8rem;
+      text-decoration: none; border-radius: 2px;
+      transition: border-color .3s, color .3s, transform .2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(28px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    /* ── SCROLL INDICATOR ── */
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      animation: fadeUp 1s 1.2s both;
+    }
+    .scroll-hint span {
+      font-size: .65rem; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--smoke);
+    }
+    .scroll-line {
+      width: 1px; height: 40px; background: var(--smoke);
+      animation: scrollPulse 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%,100% { opacity:.2; transform: scaleY(1); }
+      50%      { opacity:1; transform: scaleY(1.15); }
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex; align-items: center; gap: 1.2rem;
+      max-width: 260px; margin: 0 auto 3.5rem;
+    }
+    .divider hr { flex:1; border: none; border-top: 1px solid rgba(196,125,46,.35); }
+    .divider-icon { color: var(--caramel); font-size: 1rem; }
+
+    /* ── FEATURES ── */
+    .features {
+      padding: 7rem 2rem;
+      background: linear-gradient(180deg, var(--espresso) 0%, #200d02 100%);
+      text-align: center;
+    }
+    .section-tag {
+      display: inline-block;
+      font-size: .68rem; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--caramel); margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700;
+      color: var(--milk); margin-bottom: 3.5rem;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 2rem; max-width: 1100px; margin: 0 auto;
+    }
+    .card {
+      background: rgba(59,31,10,.45);
+      border: 1px solid rgba(196,125,46,.15);
+      border-radius: 4px; padding: 2.4rem 2rem;
+      transition: border-color .3s, transform .3s;
+      position: relative; overflow: hidden;
+    }
+    .card::before {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(196,125,46,.08), transparent 70%);
+    }
+    .card:hover { border-color: rgba(196,125,46,.5); transform: translateY(-6px); }
+    .card-icon {
+      font-size: 2.4rem; margin-bottom: 1.2rem;
+      display: block;
+    }
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; color: var(--gold); margin-bottom: .7rem;
+    }
+    .card p { font-size: .9rem; color: var(--smoke); line-height: 1.7; }
+
+    /* ── MENU HIGHLIGHT ── */
+    .menu-section {
+      padding: 6rem 2rem;
+      background: #200d02;
+      text-align: center;
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem; max-width: 900px; margin: 0 auto 3rem;
+    }
+    .menu-item {
+      background: rgba(26,10,0,.7);
+      border: 1px solid rgba(196,125,46,.12);
+      border-radius: 4px; padding: 1.8rem 1.5rem;
+      transition: border-color .3s;
+    }
+    .menu-item:hover { border-color: var(--caramel); }
+    .menu-item .m-icon { font-size: 2rem; margin-bottom: .8rem; display:block; }
+    .menu-item h4 {
+      font-family:'Playfair Display',serif;
+      font-size:1.05rem; color:var(--cream); margin-bottom:.4rem;
+    }
+    .menu-item p { font-size:.82rem; color:var(--smoke); }
+    .price { color:var(--gold); font-weight:700; margin-top:.6rem; font-size:.95rem; }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 7rem 2rem;
+      background: linear-gradient(135deg, #2e1508, var(--espresso));
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(196,125,46,.12), transparent 65%);
+    }
+    .cta-section h2 {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2rem,5vw,3.4rem); color:var(--milk);
+      margin-bottom:1rem; position:relative;
+    }
+    .cta-section p {
+      color:var(--smoke); max-width:460px; margin:0 auto 2.4rem;
+      line-height:1.8; position:relative;
+    }
+    .cta-btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; position:relative; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--espresso);
+      border-top: 1px solid rgba(196,125,46,.15);
+      padding: 2.5rem 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    footer .f-logo {
+      font-family:'Playfair Display',serif;
+      font-size:1.2rem; color:var(--gold); font-weight:900;
+    }
+    footer p { font-size:.78rem; color:var(--smoke); }
+    footer .f-links { display:flex; gap:1.4rem; }
+    footer .f-links a { color:var(--smoke); text-decoration:none; font-size:.78rem; transition:color .3s; }
+    footer .f-links a:hover { color:var(--gold); }
+
+    @media(max-width:640px){
+      nav { padding:1rem 1.5rem; }
+      .nav-links .hide-mobile { display:none; }
+      footer { flex-direction:column; text-align:center; padding:2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">QAHWA GEES</a>
+  <div class="nav-links">
+    <a href="#menu" class="hide-mobile">Menu</a>
+    <a href="#about" class="hide-mobile">Ku saabsan</a>
+    <a href="login.html">Gal</a>
+    <a href="register.html" class="nav-btn">Diiwaan Geli</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="steam">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Xafiiska Kalluunka &bull; Since 2018</div>
+    <h1 class="hero-title">Dhadhanka <em>Runta</em> ah ee Qahwa</h1>
+    <p class="hero-sub">
+      Meel ay shidaalka nolosha kugu socdaan — qahwa saafi ah, jawiga oo xasillo ah,
+      iyo degenaanshaho aad u baahan tahay.
+    </p>
+    <div class="hero-actions">
+      <a href="register.html" class="btn-primary">Ku Biir Hadda</a>
+      <a href="#menu" class="btn-outline">Eeg Menuga</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Hoos u Haajiir</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="about">
+  <div class="section-tag">Maxaa Naga Gaar ah</div>
+  <h2 class="section-title">Khibrad Aan la Mid Ahayn</h2>
+  <div class="divider">
+    <hr/>
+    <span class="divider-icon">&#9749;</span>
+    <hr/>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <span class="card-icon">&#127807;</span>
+      <h3>Beero Saafi ah</h3>
+      <p>Qahwada aanu bixino waxay ka timid beero Ethiopia iyo Colombia oo aan kab lahayn.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">&#128081;</span>
+      <h3>Xirfadlayaasha</h3>
+      <p>Barista-yadeenu waxay leeyihiin 5+ sano oo khibrad ah, oo ku takhasustay farshaxanka qahwa.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">&#127968;</span>
+      <h3>Jawiga Nadiif ah</h3>
+      <p>Qolalkaagu waa meel xasilloon oo aad ku shaqeyso, ku fadhiisato, ama ku nastid.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">&#11088;</span>
+      <h3>Xubin Ahaan Faa'iido</h3>
+      <p>Ku biir barnaamijka xubnaha — heli dhibcaha, dhimis gaar ah, iyo bixinno bilaa kharash.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="section-tag">Waxa Aanu Bixino</div>
+  <h2 class="section-title">Liiska Cabitaanka</h2>
+  <div class="divider">
+    <hr/>
+    <span class="divider-icon">&#9749;</span>
+    <hr/>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-item">
+      <span class="m-icon">&#9749;</span>
+      <h4>Espresso</h4>
+      <p>Qahwa adag oo dareen xoog leh</p>
+      <div class="price">$2.50</div>
+    </div>
+    <div class="menu-item">
+      <span class="m-icon">&#127861;</span>
+      <h4>Cappuccino</h4>
+      <p>Caano iyo qahwa si fiican loo isku daray</p>
+      <div class="price">$4.00</div>
+    </div>
+    <div class="menu-item">
+      <span class="m-icon">&#127758;</span>
+      <h4>Cold Brew</h4>
+      <p>12 saac oo qashin oo qabow ah</p>
+      <div class="price">$4.50</div>
+    </div>
+    <div class="menu-item">
+      <span class="m-icon">&#127856;</span>
+      <h4>Caramel Latte</h4>
+      <p>Macaan iyo caano dheecaan ah</p>
+      <div class="price">$5.00</div>
+    </div>
+  </div>
+  <a href="register.html" class="btn-primary">Diiwaanso oo Hel Dhimis</a>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ku Biir Qoyska Qahwa Gees</h2>
+  <p>
+    Account sameyso maanta oo aad si sahlan u dalban kartid, dhibco uruurin,
+    iyo ballanqaad gaar ah heli kartid.
+  </p>
+  <div class="cta-btns">
+    <a href="register.html" class="btn-primary">Diiwaan Geli — Bilaash</a>
+    <a href="login.html" class="btn-outline">Horaan Xisaab Ma Leedahay? Gal</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">QAHWA GEES</div>
+  <p>&copy; 2026 Qahwa Gees. Xuquuqda oo dhan way xidantahay.</p>
+  <div class="f-links">
+    <a href="login.html">Gal</a>
+    <a href="register.html">Diiwaan Geli</a>
+    <a href="#about">Ku Saabsan</a>
+  </div>
+</footer>
+
+</body>
+</html>
+
