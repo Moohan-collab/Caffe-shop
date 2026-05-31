@@ -1,414 +1,627 @@
 <!DOCTYPE html>
-<html lang="so">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Qahwa Gees | Xafiiska Kalluunka</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <title>Noir & Brew — Welcome</title>
+  <!-- Google Fonts: Cormorant Garamond (display) + Jost (body) -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <!-- Font Awesome 6 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
+    /* ===== CSS VARIABLES ===== */
     :root {
-      --espresso: #1a0a00;
-      --roast:    #3b1f0a;
-      --caramel:  #c47d2e;
-      --cream:    #f5ead7;
-      --milk:     #fdf6ec;
-      --smoke:    #8a7560;
-      --gold:     #d4a853;
+      --espresso:    #1a1008;
+      --roast:       #2c1a0e;
+      --bark:        #3d2b1f;
+      --mahogany:    #5c3d2e;
+      --caramel:     #a0622a;
+      --gold:        #c8922a;
+      --cream:       #e8d5b7;
+      --parchment:   #f2e8d5;
+      --fog:         #c9b99a;
+      --white:       #faf7f2;
+      --accent:      #d4a853;
+      --font-display:'Cormorant Garamond', Georgia, serif;
+      --font-body:   'Jost', sans-serif;
     }
 
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
     body {
+      font-family: var(--font-body);
       background-color: var(--espresso);
       color: var(--cream);
-      font-family: 'Lato', sans-serif;
       overflow-x: hidden;
     }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; width: 100%; z-index: 100;
+    /* ===== GRAIN OVERLAY ===== */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 1.2rem 4rem;
-      background: linear-gradient(to bottom, rgba(26,10,0,.92), transparent);
-      backdrop-filter: blur(4px);
+      padding: 1.4rem 5vw;
+      background: linear-gradient(to bottom, rgba(26,16,8,0.95) 0%, transparent 100%);
     }
     .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem; font-weight: 900;
-      color: var(--gold); letter-spacing: 2px;
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--accent);
       text-decoration: none;
+      display: flex; align-items: center; gap: 0.6rem;
     }
-    .nav-links { display: flex; gap: 2rem; align-items: center; }
-    .nav-links a {
-      color: var(--cream); text-decoration: none;
-      font-size: .85rem; letter-spacing: 1.5px; text-transform: uppercase;
-      font-weight: 700; transition: color .3s;
+    .nav-logo i { font-size: 1.2rem; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-link {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fog);
+      text-decoration: none;
+      transition: color 0.3s;
     }
-    .nav-links a:hover { color: var(--gold); }
-    .nav-btn {
-      background: var(--caramel); color: var(--espresso) !important;
-      padding: .5rem 1.4rem; border-radius: 2px;
-      font-weight: 700 !important; transition: background .3s !important;
+    .nav-link:hover { color: var(--accent); }
+    .nav-cta {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 0.5rem 1.4rem;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
     }
-    .nav-btn:hover { background: var(--gold) !important; }
+    .nav-cta:hover { background: var(--accent); color: var(--espresso); }
 
-    /* ── HERO ── */
+    /* ===== HERO ===== */
     .hero {
-      position: relative; height: 100vh;
+      position: relative;
+      min-height: 100vh;
       display: flex; align-items: center; justify-content: center;
-      overflow: hidden; text-align: center;
+      overflow: hidden;
     }
+    /* Hero background image placeholder */
     .hero-bg {
       position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse at 30% 60%, rgba(196,125,46,.18) 0%, transparent 60%),
-        radial-gradient(ellipse at 70% 30%, rgba(212,168,83,.12) 0%, transparent 55%),
-        linear-gradient(160deg, #1a0a00 0%, #2e1508 50%, #1a0a00 100%);
+      background: linear-gradient(135deg, var(--espresso) 0%, var(--roast) 40%, var(--bark) 100%);
+      z-index: 0;
     }
-    /* animated steam rings */
-    .steam { position: absolute; bottom: 38%; left: 50%; transform: translateX(-50%); }
-    .steam span {
-      display: block; width: 6px; height: 6px;
-      border-radius: 50%; background: rgba(245,234,215,.25);
-      margin: 0 auto 4px;
-      animation: rise 3s ease-in infinite;
-    }
-    .steam span:nth-child(2) { animation-delay: .6s; width:5px; height:5px; }
-    .steam span:nth-child(3) { animation-delay: 1.2s; width:4px; height:4px; }
-    @keyframes rise {
-      0%   { opacity:0; transform: translateY(0) scale(1); }
-      40%  { opacity:.7; }
-      100% { opacity:0; transform: translateY(-70px) scale(2.5); }
-    }
-
-    .hero-content { position: relative; z-index: 2; max-width: 780px; padding: 2rem; }
-    .hero-eyebrow {
-      display: inline-block;
-      font-size: .72rem; letter-spacing: 5px; text-transform: uppercase;
-      color: var(--caramel); margin-bottom: 1.4rem;
-      border-top: 1px solid var(--caramel); border-bottom: 1px solid var(--caramel);
-      padding: .35rem 1.2rem;
-      animation: fadeUp .8s .2s both;
-    }
-    .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3.5rem, 9vw, 7rem);
-      font-weight: 900; line-height: 1;
-      color: var(--milk);
-      animation: fadeUp .9s .4s both;
-    }
-    .hero-title em { color: var(--gold); font-style: italic; }
-    .hero-sub {
-      margin: 1.5rem auto 2.5rem;
-      max-width: 480px; font-size: 1rem;
-      color: var(--smoke); line-height: 1.8;
-      animation: fadeUp .9s .6s both;
-    }
-    .hero-actions {
-      display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;
-      animation: fadeUp .9s .8s both;
-    }
-    .btn-primary {
-      background: var(--caramel); color: var(--espresso);
-      padding: .9rem 2.4rem; font-weight: 700;
-      letter-spacing: 1.5px; text-transform: uppercase; font-size: .8rem;
-      text-decoration: none; border-radius: 2px;
-      transition: background .3s, transform .2s;
-      display: inline-block;
-    }
-    .btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
-    .btn-outline {
-      border: 1.5px solid var(--smoke); color: var(--cream);
-      padding: .9rem 2.4rem; font-weight: 700;
-      letter-spacing: 1.5px; text-transform: uppercase; font-size: .8rem;
-      text-decoration: none; border-radius: 2px;
-      transition: border-color .3s, color .3s, transform .2s;
-      display: inline-block;
-    }
-    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
-
-    @keyframes fadeUp {
-      from { opacity:0; transform: translateY(28px); }
-      to   { opacity:1; transform: translateY(0); }
-    }
-
-    /* ── SCROLL INDICATOR ── */
-    .scroll-hint {
-      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: .5rem;
-      animation: fadeUp 1s 1.2s both;
-    }
-    .scroll-hint span {
-      font-size: .65rem; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--smoke);
-    }
-    .scroll-line {
-      width: 1px; height: 40px; background: var(--smoke);
-      animation: scrollPulse 1.8s ease-in-out infinite;
-    }
-    @keyframes scrollPulse {
-      0%,100% { opacity:.2; transform: scaleY(1); }
-      50%      { opacity:1; transform: scaleY(1.15); }
-    }
-
-    /* ── DIVIDER ── */
-    .divider {
-      display: flex; align-items: center; gap: 1.2rem;
-      max-width: 260px; margin: 0 auto 3.5rem;
-    }
-    .divider hr { flex:1; border: none; border-top: 1px solid rgba(196,125,46,.35); }
-    .divider-icon { color: var(--caramel); font-size: 1rem; }
-
-    /* ── FEATURES ── */
-    .features {
-      padding: 7rem 2rem;
-      background: linear-gradient(180deg, var(--espresso) 0%, #200d02 100%);
-      text-align: center;
-    }
-    .section-tag {
-      display: inline-block;
-      font-size: .68rem; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--caramel); margin-bottom: 1rem;
-    }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700;
-      color: var(--milk); margin-bottom: 3.5rem;
-    }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 2rem; max-width: 1100px; margin: 0 auto;
-    }
-    .card {
-      background: rgba(59,31,10,.45);
-      border: 1px solid rgba(196,125,46,.15);
-      border-radius: 4px; padding: 2.4rem 2rem;
-      transition: border-color .3s, transform .3s;
-      position: relative; overflow: hidden;
-    }
-    .card::before {
-      content:''; position:absolute; inset:0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(196,125,46,.08), transparent 70%);
-    }
-    .card:hover { border-color: rgba(196,125,46,.5); transform: translateY(-6px); }
-    .card-icon {
-      font-size: 2.4rem; margin-bottom: 1.2rem;
+    /* Replace the src below with your own hero image */
+    .hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.22;
       display: block;
     }
-    .card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem; color: var(--gold); margin-bottom: .7rem;
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 50%, rgba(200,146,42,0.08) 0%, rgba(26,16,8,0.7) 70%);
+      z-index: 1;
     }
-    .card p { font-size: .9rem; color: var(--smoke); line-height: 1.7; }
-
-    /* ── MENU HIGHLIGHT ── */
-    .menu-section {
-      padding: 6rem 2rem;
-      background: #200d02;
+    .hero-content {
+      position: relative; z-index: 2;
       text-align: center;
+      padding: 2rem;
+      animation: fadeUp 1.2s ease both;
     }
-    .menu-grid {
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.4rem;
+      display: flex; align-items: center; justify-content: center; gap: 1rem;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: '';
+      display: block; width: 40px; height: 1px;
+      background: var(--accent); opacity: 0.6;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-weight: 300;
+      line-height: 0.95;
+      color: var(--parchment);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.2rem;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-subtitle {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--fog);
+      margin-bottom: 3rem;
+      letter-spacing: 0.04em;
+    }
+    .hero-divider {
+      width: 60px; height: 1px;
+      background: var(--accent); opacity: 0.5;
+      margin: 1.2rem auto;
+    }
+    .hero-desc {
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: var(--fog);
+      max-width: 480px;
+      margin: 0 auto 3rem;
+      line-height: 1.8;
+      letter-spacing: 0.02em;
+    }
+    .hero-cta-group {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent);
+      color: var(--espresso);
+      padding: 1rem 2.4rem;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(255,255,255,0.15);
+      transform: translateX(-100%);
+      transition: transform 0.3s;
+    }
+    .btn-primary:hover::after { transform: translateX(0); }
+    .btn-primary:hover { background: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(200,146,42,0.4); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent;
+      color: var(--cream);
+      border: 1px solid rgba(232,213,183,0.4);
+      padding: 1rem 2.4rem;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .btn-outline:hover {
+      border-color: var(--cream);
+      background: rgba(232,213,183,0.08);
+      transform: translateY(-2px);
+    }
+
+    /* ===== SCROLL INDICATOR ===== */
+    .scroll-indicator {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 2; text-align: center;
+      animation: bounce 2s infinite;
+    }
+    .scroll-indicator span {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--fog);
+      margin-bottom: 0.5rem;
+    }
+    .scroll-indicator i { color: var(--accent); font-size: 0.85rem; }
+
+    /* ===== STRIP: TAGLINE ===== */
+    .tagline-strip {
+      background: var(--roast);
+      border-top: 1px solid rgba(200,146,42,0.15);
+      border-bottom: 1px solid rgba(200,146,42,0.15);
+      padding: 1.2rem 5vw;
+      display: flex; gap: 4rem; justify-content: center; align-items: center; flex-wrap: wrap;
+    }
+    .tagline-item {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fog);
+    }
+    .tagline-item i { color: var(--accent); }
+
+    /* ===== FEATURED SECTION ===== */
+    .section { padding: 6rem 5vw; }
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      color: var(--parchment);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .section-title em { font-style: italic; color: var(--accent); }
+    .section-body {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--fog);
+      line-height: 1.9;
+      max-width: 520px;
+    }
+
+    /* ===== FEATURED GRID ===== */
+    .featured-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem; max-width: 900px; margin: 0 auto 3rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--bark);
+      margin-top: 4rem;
     }
-    .menu-item {
-      background: rgba(26,10,0,.7);
-      border: 1px solid rgba(196,125,46,.12);
-      border-radius: 4px; padding: 1.8rem 1.5rem;
-      transition: border-color .3s;
+    .featured-card {
+      background: var(--roast);
+      position: relative;
+      overflow: hidden;
+      min-height: 400px;
     }
-    .menu-item:hover { border-color: var(--caramel); }
-    .menu-item .m-icon { font-size: 2rem; margin-bottom: .8rem; display:block; }
-    .menu-item h4 {
-      font-family:'Playfair Display',serif;
-      font-size:1.05rem; color:var(--cream); margin-bottom:.4rem;
+    .featured-card:first-child { grid-row: span 2; min-height: 600px; }
+    /* Image placeholder — replace src with your own image */
+    .featured-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.55;
+      transition: opacity 0.5s, transform 0.6s;
     }
-    .menu-item p { font-size:.82rem; color:var(--smoke); }
-    .price { color:var(--gold); font-weight:700; margin-top:.6rem; font-size:.95rem; }
+    .featured-card:hover img { opacity: 0.7; transform: scale(1.04); }
+    .featured-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(26,16,8,0.9) 0%, transparent 60%);
+    }
+    .featured-card-info {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 2rem;
+    }
+    .featured-card-tag {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .featured-card-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--parchment);
+    }
 
-    /* ── CTA ── */
+    /* ===== EXPERIENCE SECTION ===== */
+    .experience-section {
+      padding: 6rem 5vw;
+      background: var(--roast);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5vw;
+      align-items: center;
+    }
+    .experience-image {
+      position: relative;
+    }
+    /* Replace src with your own image */
+    .experience-image img {
+      width: 100%; aspect-ratio: 4/5;
+      object-fit: cover;
+      display: block;
+      opacity: 0.75;
+    }
+    .experience-image::after {
+      content: '';
+      position: absolute;
+      top: 1.5rem; left: 1.5rem; right: -1.5rem; bottom: -1.5rem;
+      border: 1px solid rgba(200,146,42,0.25);
+      z-index: -1;
+    }
+    .experience-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .stat-item {}
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fog);
+      margin-top: 0.3rem;
+    }
+
+    /* ===== CTA SECTION ===== */
     .cta-section {
-      padding: 7rem 2rem;
-      background: linear-gradient(135deg, #2e1508, var(--espresso));
+      padding: 7rem 5vw;
       text-align: center;
-      position: relative; overflow: hidden;
+      background: linear-gradient(135deg, var(--bark) 0%, var(--roast) 100%);
+      position: relative;
+      overflow: hidden;
     }
     .cta-section::before {
-      content:''; position:absolute; inset:0;
-      background: radial-gradient(ellipse at 50% 50%, rgba(196,125,46,.12), transparent 65%);
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(200,146,42,0.07) 0%, transparent 70%);
     }
-    .cta-section h2 {
-      font-family:'Playfair Display',serif;
-      font-size:clamp(2rem,5vw,3.4rem); color:var(--milk);
-      margin-bottom:1rem; position:relative;
-    }
-    .cta-section p {
-      color:var(--smoke); max-width:460px; margin:0 auto 2.4rem;
-      line-height:1.8; position:relative;
-    }
-    .cta-btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; position:relative; }
+    .cta-section .section-title { max-width: 640px; margin: 0 auto 0.8rem; }
+    .cta-section .section-body { margin: 0 auto 3rem; }
+    .cta-section .hero-cta-group { justify-content: center; }
 
-    /* ── FOOTER ── */
+    /* ===== FOOTER ===== */
     footer {
       background: var(--espresso);
-      border-top: 1px solid rgba(196,125,46,.15);
-      padding: 2.5rem 4rem;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 1rem;
+      border-top: 1px solid rgba(200,146,42,0.12);
+      padding: 3rem 5vw 2rem;
     }
-    footer .f-logo {
-      font-family:'Playfair Display',serif;
-      font-size:1.2rem; color:var(--gold); font-weight:900;
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;
     }
-    footer p { font-size:.78rem; color:var(--smoke); }
-    footer .f-links { display:flex; gap:1.4rem; }
-    footer .f-links a { color:var(--smoke); text-decoration:none; font-size:.78rem; transition:color .3s; }
-    footer .f-links a:hover { color:var(--gold); }
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+    }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-link {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fog);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-link:hover { color: var(--accent); }
+    .footer-copy {
+      width: 100%;
+      text-align: center;
+      font-size: 0.72rem;
+      color: rgba(201,185,154,0.35);
+      letter-spacing: 0.08em;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(200,146,42,0.08);
+    }
 
-    @media(max-width:640px){
-      nav { padding:1rem 1.5rem; }
-      .nav-links .hide-mobile { display:none; }
-      footer { flex-direction:column; text-align:center; padding:2rem 1.5rem; }
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .featured-grid { grid-template-columns: 1fr; }
+      .featured-card:first-child { grid-row: auto; min-height: 400px; }
+      .experience-section { grid-template-columns: 1fr; }
+      .experience-image::after { display: none; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .tagline-strip { gap: 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="index.html">QAHWA GEES</a>
-  <div class="nav-links">
-    <a href="#menu" class="hide-mobile">Menu</a>
-    <a href="#about" class="hide-mobile">Ku saabsan</a>
-    <a href="login.html">Gal</a>
-    <a href="register.html" class="nav-btn">Diiwaan Geli</a>
-  </div>
-</nav>
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="nav">
+    <a href="welcome.html" class="nav-logo">
+      <i class="fa-solid fa-mug-hot"></i> Noir &amp; Brew
+    </a>
+    <div class="nav-links">
+      <a href="#experience" class="nav-link">Our Story</a>
+      <a href="#menu-preview" class="nav-link">Menu</a>
+      <a href="login.html" class="nav-link">Login</a>
+      <a href="register.html" class="nav-cta">Sign Up</a>
+    </div>
+  </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="steam">
-    <span></span><span></span><span></span>
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <!-- BACKGROUND IMAGE PLACEHOLDER: Replace the src with your own hero image URL -->
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1600" alt="Coffee shop ambience background"/>
+    </div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">
+        <i class="fa-solid fa-circle-dot fa-xs"></i>
+        Est. 2024 &mdash; Artisan Roasters
+      </p>
+      <h1 class="hero-title">
+        Where Every<br/><em>Cup</em> Tells<br/>a Story
+      </h1>
+      <div class="hero-divider"></div>
+      <p class="hero-subtitle">Crafted with intention. Served with soul.</p>
+      <p class="hero-desc">
+        Noir &amp; Brew is more than a coffee shop. It is a sanctuary for those who seek warmth, depth, and the quiet ritual of a perfectly made cup.
+      </p>
+      <div class="hero-cta-group">
+        <a href="register.html" class="btn-primary">
+          <i class="fa-solid fa-user-plus"></i> Sign Up Free
+        </a>
+        <a href="login.html" class="btn-outline">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i> Login
+        </a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- ===== TAGLINE STRIP ===== -->
+  <div class="tagline-strip">
+    <div class="tagline-item">
+      <i class="fa-solid fa-seedling"></i> Single-Origin Beans
+    </div>
+    <div class="tagline-item">
+      <i class="fa-solid fa-fire-flame-curved"></i> Slow-Roasted Daily
+    </div>
+    <div class="tagline-item">
+      <i class="fa-solid fa-location-dot"></i> Downtown Flagship
+    </div>
+    <div class="tagline-item">
+      <i class="fa-solid fa-star"></i> Award-Winning Baristas
+    </div>
   </div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">Xafiiska Kalluunka &bull; Since 2018</div>
-    <h1 class="hero-title">Dhadhanka <em>Runta</em> ah ee Qahwa</h1>
-    <p class="hero-sub">
-      Meel ay shidaalka nolosha kugu socdaan — qahwa saafi ah, jawiga oo xasillo ah,
-      iyo degenaanshaho aad u baahan tahay.
+
+  <!-- ===== FEATURED GRID ===== -->
+  <section class="section" id="menu-preview">
+    <p class="section-label">From the Menu</p>
+    <h2 class="section-title">Curated for the<br/><em>Discerning</em> Palate</h2>
+  </section>
+
+  <div class="featured-grid">
+    <!-- FEATURED CARD 1 (large) — replace src with your own image -->
+    <div class="featured-card">
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800" alt="Espresso shot"/>
+      <div class="featured-card-overlay"></div>
+      <div class="featured-card-info">
+        <p class="featured-card-tag">Signature</p>
+        <h3 class="featured-card-title">The Dark Ritual Espresso</h3>
+      </div>
+    </div>
+    <!-- FEATURED CARD 2 — replace src with your own image -->
+    <div class="featured-card">
+      <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=800" alt="Cappuccino"/>
+      <div class="featured-card-overlay"></div>
+      <div class="featured-card-info">
+        <p class="featured-card-tag">Bestseller</p>
+        <h3 class="featured-card-title">Velvet Cappuccino</h3>
+      </div>
+    </div>
+    <!-- FEATURED CARD 3 — replace src with your own image -->
+    <div class="featured-card">
+      <img src="https://images.unsplash.com/photo-1561047029-3000c68339ca?w=800" alt="Cold brew"/>
+      <div class="featured-card-overlay"></div>
+      <div class="featured-card-info">
+        <p class="featured-card-tag">Cold Series</p>
+        <h3 class="featured-card-title">Midnight Cold Brew</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== EXPERIENCE SECTION ===== -->
+  <section class="experience-section" id="experience">
+    <div class="experience-image">
+      <!-- Replace src with your own image -->
+      <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800" alt="Coffee shop interior"/>
+    </div>
+    <div class="experience-text">
+      <p class="section-label">Our Philosophy</p>
+      <h2 class="section-title">More Than<br/><em>Coffee</em></h2>
+      <p class="section-body">
+        Every bean is sourced with care, every roast is calibrated with precision, and every cup is a moment worth pausing for. We believe in the art of slowness — of letting quality speak for itself.
+      </p>
+      <div class="experience-stats">
+        <div class="stat-item">
+          <div class="stat-number">14+</div>
+          <div class="stat-label">Origin Countries</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">300+</div>
+          <div class="stat-label">Daily Cups Served</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">8</div>
+          <div class="stat-label">Expert Baristas</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Roast Profiles</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FINAL CTA SECTION ===== -->
+  <section class="cta-section">
+    <p class="section-label">Join the Community</p>
+    <h2 class="section-title"><em>Begin</em> Your Journey</h2>
+    <p class="section-body">
+      Create your account today to explore our full menu, save your favourite orders, and enjoy members-only rewards.
     </p>
-    <div class="hero-actions">
-      <a href="register.html" class="btn-primary">Ku Biir Hadda</a>
-      <a href="#menu" class="btn-outline">Eeg Menuga</a>
+    <div class="hero-cta-group">
+      <a href="register.html" class="btn-primary">
+        <i class="fa-solid fa-user-plus"></i> Create Account
+      </a>
+      <a href="login.html" class="btn-outline">
+        <i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In
+      </a>
     </div>
-  </div>
-  <div class="scroll-hint">
-    <span>Hoos u Haajiir</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
+  </section>
 
-<!-- FEATURES -->
-<section class="features" id="about">
-  <div class="section-tag">Maxaa Naga Gaar ah</div>
-  <h2 class="section-title">Khibrad Aan la Mid Ahayn</h2>
-  <div class="divider">
-    <hr/>
-    <span class="divider-icon">&#9749;</span>
-    <hr/>
-  </div>
-  <div class="cards">
-    <div class="card">
-      <span class="card-icon">&#127807;</span>
-      <h3>Beero Saafi ah</h3>
-      <p>Qahwada aanu bixino waxay ka timid beero Ethiopia iyo Colombia oo aan kab lahayn.</p>
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <i class="fa-solid fa-mug-hot"></i> Noir &amp; Brew
+      </div>
+      <div class="footer-links">
+        <a href="register.html" class="footer-link">Sign Up</a>
+        <a href="login.html" class="footer-link">Login</a>
+        <a href="home.html" class="footer-link">Menu</a>
+      </div>
     </div>
-    <div class="card">
-      <span class="card-icon">&#128081;</span>
-      <h3>Xirfadlayaasha</h3>
-      <p>Barista-yadeenu waxay leeyihiin 5+ sano oo khibrad ah, oo ku takhasustay farshaxanka qahwa.</p>
-    </div>
-    <div class="card">
-      <span class="card-icon">&#127968;</span>
-      <h3>Jawiga Nadiif ah</h3>
-      <p>Qolalkaagu waa meel xasilloon oo aad ku shaqeyso, ku fadhiisato, ama ku nastid.</p>
-    </div>
-    <div class="card">
-      <span class="card-icon">&#11088;</span>
-      <h3>Xubin Ahaan Faa'iido</h3>
-      <p>Ku biir barnaamijka xubnaha — heli dhibcaha, dhimis gaar ah, iyo bixinno bilaa kharash.</p>
-    </div>
-  </div>
-</section>
-
-<!-- MENU -->
-<section class="menu-section" id="menu">
-  <div class="section-tag">Waxa Aanu Bixino</div>
-  <h2 class="section-title">Liiska Cabitaanka</h2>
-  <div class="divider">
-    <hr/>
-    <span class="divider-icon">&#9749;</span>
-    <hr/>
-  </div>
-  <div class="menu-grid">
-    <div class="menu-item">
-      <span class="m-icon">&#9749;</span>
-      <h4>Espresso</h4>
-      <p>Qahwa adag oo dareen xoog leh</p>
-      <div class="price">$2.50</div>
-    </div>
-    <div class="menu-item">
-      <span class="m-icon">&#127861;</span>
-      <h4>Cappuccino</h4>
-      <p>Caano iyo qahwa si fiican loo isku daray</p>
-      <div class="price">$4.00</div>
-    </div>
-    <div class="menu-item">
-      <span class="m-icon">&#127758;</span>
-      <h4>Cold Brew</h4>
-      <p>12 saac oo qashin oo qabow ah</p>
-      <div class="price">$4.50</div>
-    </div>
-    <div class="menu-item">
-      <span class="m-icon">&#127856;</span>
-      <h4>Caramel Latte</h4>
-      <p>Macaan iyo caano dheecaan ah</p>
-      <div class="price">$5.00</div>
-    </div>
-  </div>
-  <a href="register.html" class="btn-primary">Diiwaanso oo Hel Dhimis</a>
-</section>
-
-<!-- CTA -->
-<section class="cta-section">
-  <h2>Ku Biir Qoyska Qahwa Gees</h2>
-  <p>
-    Account sameyso maanta oo aad si sahlan u dalban kartid, dhibco uruurin,
-    iyo ballanqaad gaar ah heli kartid.
-  </p>
-  <div class="cta-btns">
-    <a href="register.html" class="btn-primary">Diiwaan Geli — Bilaash</a>
-    <a href="login.html" class="btn-outline">Horaan Xisaab Ma Leedahay? Gal</a>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="f-logo">QAHWA GEES</div>
-  <p>&copy; 2026 Qahwa Gees. Xuquuqda oo dhan way xidantahay.</p>
-  <div class="f-links">
-    <a href="login.html">Gal</a>
-    <a href="register.html">Diiwaan Geli</a>
-    <a href="#about">Ku Saabsan</a>
-  </div>
-</footer>
+    <p class="footer-copy">&copy; 2024 Noir &amp; Brew Coffee House. All rights reserved.</p>
+  </footer>
 
 </body>
-</html>
-
+          </html>
