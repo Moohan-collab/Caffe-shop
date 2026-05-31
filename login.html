@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gal | Qahwa Gees</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --espresso:#1a0a00; --roast:#3b1f0a; --caramel:#c47d2e;
+      --cream:#f5ead7; --milk:#fdf6ec; --smoke:#8a7560; --gold:#d4a853;
+      --err:#e05252; --ok:#4caf50;
+    }
+    body {
+      background:var(--espresso); color:var(--cream);
+      font-family:'Lato',sans-serif; min-height:100vh;
+      display:flex; flex-direction:column;
+    }
+
+    /* NAV */
+    nav {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1.2rem 4rem;
+      border-bottom:1px solid rgba(196,125,46,.15);
+    }
+    .nav-logo {
+      font-family:'Playfair Display',serif;
+      font-size:1.4rem; font-weight:900; color:var(--gold);
+      text-decoration:none; letter-spacing:2px;
+    }
+    .nav-back {
+      font-size:.78rem; letter-spacing:1.5px; text-transform:uppercase;
+      color:var(--smoke); text-decoration:none;
+      transition:color .3s; display:flex; align-items:center; gap:.5rem;
+    }
+    .nav-back:hover { color:var(--gold); }
+
+    /* PAGE LAYOUT */
+    .page {
+      flex:1; display:grid;
+      grid-template-columns:1fr 1fr;
+      min-height:calc(100vh - 70px);
+    }
+
+    /* LEFT PANEL */
+    .left-panel {
+      background:linear-gradient(160deg, #2e1508 0%, #200d02 100%);
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      padding:4rem 3rem; text-align:center;
+      position:relative; overflow:hidden;
+    }
+    .left-panel::before {
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(ellipse at 50% 40%, rgba(196,125,46,.14), transparent 65%);
+    }
+    /* animated steam */
+    .steam-anim {
+      position:absolute; bottom:18%; left:50%;
+      transform:translateX(-50%);
+    }
+    .steam-anim span {
+      display:inline-block; width:5px; height:5px;
+      border-radius:50%; background:rgba(245,234,215,.2);
+      margin:0 3px;
+      animation:riseUp 2.8s ease-in infinite;
+    }
+    .steam-anim span:nth-child(2){animation-delay:.5s;}
+    .steam-anim span:nth-child(3){animation-delay:1s;}
+    @keyframes riseUp {
+      0%  {opacity:0; transform:translateY(0) scale(1);}
+      40% {opacity:.6;}
+      100%{opacity:0; transform:translateY(-60px) scale(2);}
+    }
+    .cup-icon { font-size:4rem; position:absolute; bottom:16%; left:50%; transform:translateX(-50%); }
+
+    .panel-content { position:relative; z-index:1; max-width:380px; }
+    .panel-title {
+      font-family:'Playfair Display',serif;
+      font-size:2.4rem; font-weight:900; color:var(--milk);
+      margin-bottom:1rem; line-height:1.15;
+    }
+    .panel-title em { color:var(--gold); font-style:italic; }
+    .panel-sub { color:var(--smoke); font-size:.92rem; line-height:1.8; margin-bottom:2rem; }
+
+    .testimonial {
+      background:rgba(59,31,10,.4);
+      border-left:3px solid var(--caramel);
+      border-radius:0 3px 3px 0;
+      padding:1.2rem 1.4rem; text-align:left; margin-bottom:1.6rem;
+    }
+    .testimonial p { font-size:.88rem; color:var(--cream); line-height:1.7; font-style:italic; margin-bottom:.6rem; }
+    .testimonial .t-name { font-size:.75rem; color:var(--caramel); font-weight:700; letter-spacing:1px; }
+    .stars { color:var(--gold); font-size:.9rem; margin-bottom:.4rem; }
+
+    .no-account { font-size:.82rem; color:var(--smoke); }
+    .no-account a { color:var(--gold); text-decoration:none; font-weight:700; }
+    .no-account a:hover { text-decoration:underline; }
+
+    /* RIGHT PANEL */
+    .right-panel {
+      background:var(--espresso);
+      display:flex; align-items:center; justify-content:center;
+      padding:3rem 2rem;
+    }
+    .form-card { width:100%; max-width:400px; }
+    .form-heading {
+      font-family:'Playfair Display',serif;
+      font-size:2rem; color:var(--milk); margin-bottom:.4rem;
+    }
+    .form-sub { color:var(--smoke); font-size:.87rem; margin-bottom:2rem; }
+
+    /* FORM */
+    .form-row { margin-bottom:1.3rem; }
+    label {
+      display:block; font-size:.72rem; letter-spacing:1.5px;
+      text-transform:uppercase; color:var(--smoke);
+      margin-bottom:.45rem; font-weight:700;
+    }
+    .input-wrap { position:relative; }
+    .input-wrap .i-icon {
+      position:absolute; left:.9rem; top:50%; transform:translateY(-50%);
+      font-size:1rem; color:var(--smoke); pointer-events:none;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width:100%; padding:.82rem .9rem .82rem 2.5rem;
+      background:rgba(59,31,10,.5);
+      border:1px solid rgba(196,125,46,.2);
+      border-radius:3px; color:var(--cream);
+      font-family:'Lato',sans-serif; font-size:.93rem;
+      transition:border-color .3s, box-shadow .3s;
+      outline:none;
+    }
+    input:focus {
+      border-color:var(--caramel);
+      box-shadow:0 0 0 3px rgba(196,125,46,.12);
+    }
+    input::placeholder { color:var(--smoke); opacity:.7; }
+    .pw-toggle {
+      position:absolute; right:.9rem; top:50%; transform:translateY(-50%);
+      background:none; border:none; cursor:pointer;
+      font-size:1rem; color:var(--smoke); transition:color .3s; padding:0;
+    }
+    .pw-toggle:hover { color:var(--gold); }
+
+    .field-err {
+      font-size:.72rem; color:var(--err); margin-top:.3rem;
+      min-height:16px; display:block;
+    }
+
+    .msg-box {
+      border-radius:3px; padding:.8rem 1rem;
+      font-size:.85rem; margin-bottom:1.2rem; display:none;
+    }
+    .msg-box.err  { background:rgba(224,82,82,.12); border:1px solid rgba(224,82,82,.35); color:#f08080; }
+    .msg-box.succ { background:rgba(76,175,80,.12);  border:1px solid rgba(76,175,80,.35);  color:#81c784; }
+
+    /* remember + forgot */
+    .row-flex {
+      display:flex; align-items:center; justify-content:space-between;
+      margin-bottom:1.4rem;
+    }
+    .remember {
+      display:flex; align-items:center; gap:.5rem;
+    }
+    .remember input[type="checkbox"] {
+      width:15px; height:15px;
+      accent-color:var(--caramel);
+    }
+    .remember label {
+      font-size:.8rem; letter-spacing:0; text-transform:none;
+      color:var(--smoke); cursor:pointer; margin-bottom:0;
+    }
+    .forgot {
+      font-size:.8rem; color:var(--caramel); text-decoration:none;
+      transition:color .3s;
+    }
+    .forgot:hover { color:var(--gold); }
+
+    .btn-submit {
+      width:100%; padding:.9rem; background:var(--caramel);
+      color:var(--espresso); font-weight:700; font-size:.9rem;
+      letter-spacing:1.5px; text-transform:uppercase;
+      border:none; border-radius:3px; cursor:pointer;
+      transition:background .3s, transform .2s; margin-bottom:1.4rem;
+    }
+    .btn-submit:hover:not(:disabled) { background:var(--gold); transform:translateY(-2px); }
+    .btn-submit:disabled { opacity:.5; cursor:not-allowed; }
+
+    .or-div {
+      display:flex; align-items:center; gap:.8rem; margin-bottom:1.3rem;
+    }
+    .or-div hr { flex:1; border:none; border-top:1px solid rgba(196,125,46,.18); }
+    .or-div span { font-size:.72rem; color:var(--smoke); letter-spacing:1px; text-transform:uppercase; }
+
+    .register-link {
+      text-align:center; font-size:.85rem; color:var(--smoke);
+    }
+    .register-link a { color:var(--gold); font-weight:700; text-decoration:none; }
+    .register-link a:hover { text-decoration:underline; }
+
+    /* GUEST CTA */
+    .guest-cta {
+      text-align:center; margin-top:1.5rem;
+      padding-top:1.2rem;
+      border-top:1px solid rgba(196,125,46,.12);
+    }
+    .guest-cta p { font-size:.8rem; color:var(--smoke); margin-bottom:.7rem; }
+    .btn-guest {
+      display:inline-block; padding:.6rem 1.6rem;
+      border:1px solid rgba(196,125,46,.25); border-radius:3px;
+      color:var(--smoke); font-size:.78rem; letter-spacing:1px;
+      text-transform:uppercase; text-decoration:none;
+      transition:border-color .3s, color .3s;
+    }
+    .btn-guest:hover { border-color:var(--caramel); color:var(--cream); }
+
+    /* SUCCESS */
+    .success-screen {
+      display:none; text-align:center; padding:2rem 0;
+    }
+    .success-screen .s-icon { font-size:3.5rem; margin-bottom:1.2rem; }
+    .success-screen h3 {
+      font-family:'Playfair Display',serif;
+      font-size:1.7rem; color:var(--milk); margin-bottom:.6rem;
+    }
+    .success-screen p { color:var(--smoke); font-size:.9rem; margin-bottom:1.8rem; line-height:1.7; }
+    .welcome-name { color:var(--gold); }
+
+    /* FORGOT PASSWORD MODAL */
+    .modal-overlay {
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.65); backdrop-filter:blur(4px);
+      display:none; align-items:center; justify-content:center;
+      z-index:999;
+    }
+    .modal-overlay.open { display:flex; }
+    .modal {
+      background:var(--roast);
+      border:1px solid rgba(196,125,46,.25);
+      border-radius:6px; padding:2.4rem 2rem;
+      max-width:380px; width:90%; text-align:center;
+      animation:popIn .25s ease;
+    }
+    @keyframes popIn {
+      from{opacity:0;transform:scale(.94);}
+      to{opacity:1;transform:scale(1);}
+    }
+    .modal h3 {
+      font-family:'Playfair Display',serif;
+      font-size:1.4rem; color:var(--milk); margin-bottom:.5rem;
+    }
+    .modal p { color:var(--smoke); font-size:.86rem; margin-bottom:1.4rem; line-height:1.6; }
+    .modal input {
+      width:100%; padding:.78rem .9rem .78rem 2.5rem;
+      background:rgba(26,10,0,.6);
+      border:1px solid rgba(196,125,46,.2);
+      border-radius:3px; color:var(--cream);
+      font-family:'Lato',sans-serif; font-size:.9rem;
+      outline:none; margin-bottom:1rem;
+      transition:border-color .3s;
+    }
+    .modal input:focus { border-color:var(--caramel); }
+    .modal-btns { display:flex; gap:.8rem; }
+    .modal-btns button {
+      flex:1; padding:.75rem; border-radius:3px;
+      font-weight:700; font-size:.8rem; letter-spacing:1px;
+      text-transform:uppercase; cursor:pointer; border:none;
+      transition:background .3s;
+    }
+    .modal-send { background:var(--caramel); color:var(--espresso); }
+    .modal-send:hover { background:var(--gold); }
+    .modal-cancel { background:rgba(59,31,10,.8); color:var(--smoke); border:1px solid rgba(196,125,46,.2) !important; }
+    .modal-cancel:hover { color:var(--cream); }
+    .modal-success { display:none; }
+    .modal-success .ms-icon { font-size:2.5rem; margin-bottom:.8rem; }
+    .modal-success p { color:var(--smoke); font-size:.88rem; }
+
+    @media(max-width:780px){
+      .page { grid-template-columns:1fr; }
+      .left-panel { display:none; }
+      nav { padding:1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">QAHWA GEES</a>
+  <a class="nav-back" href="index.html">&#8592; Bogga Hore</a>
+</nav>
+
+<div class="page">
+
+  <!-- LEFT -->
+  <div class="left-panel">
+    <div class="cup-icon">&#9749;</div>
+    <div class="steam-anim">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="panel-content">
+      <h2 class="panel-title">Ku Soo <em>Noqo</em> Mar Kale</h2>
+      <p class="panel-sub">
+        Xisaabta gal oo samee dalabtaada si degdeg ah, 
+        arag xaaladda, oo hel faa'iidada xubnaha.
+      </p>
+      <div class="testimonial">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"Qahwa Gees waa meesha ugu fiican ee magaalada — qahwadiisa waa xaaluf!"</p>
+        <div class="t-name">— Fadumo A., Muqdisho</div>
+      </div>
+      <p class="no-account">Xisaab ma leedid? <a href="register.html">Samee Xisaab Bilaash</a></p>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right-panel">
+    <div class="form-card">
+      <div class="form-heading">Ku Soo Dhow</div>
+      <p class="form-sub">Gal xisaabta si aad u dalanto qahwa macaan.</p>
+
+      <div class="msg-box" id="msgBox"></div>
+
+      <form id="loginForm" novalidate>
+
+        <div class="form-row">
+          <label for="loginEmail">Iimaylka ama Username</label>
+          <div class="input-wrap">
+            <span class="i-icon">&#128140;</span>
+            <input type="text" id="loginEmail" name="loginEmail"
+                   placeholder="magacaaga@example.com"/>
+          </div>
+          <span class="field-err" id="emailErr"></span>
+        </div>
+
+        <div class="form-row">
+          <label for="loginPw">Furaha Sirta ah</label>
+          <div class="input-wrap">
+            <span class="i-icon">&#128274;</span>
+            <input type="password" id="loginPw" name="loginPw"
+                   placeholder="Fur-sirta"/>
+            <button type="button" class="pw-toggle" id="togglePw" tabindex="-1">&#128065;</button>
+          </div>
+          <span class="field-err" id="pwErr"></span>
+        </div>
+
+        <div class="row-flex">
+          <div class="remember">
+            <input type="checkbox" id="remember" name="remember"/>
+            <label for="remember">I xasuusо</label>
+          </div>
+          <a href="#" class="forgot" id="forgotLink">Fur-sirta Illowday?</a>
+        </div>
+
+        <button type="submit" class="btn-submit" id="loginBtn">
+          Gal Xisaabta
+        </button>
+
+        <div class="or-div"><hr/><span>ama</span><hr/></div>
+        <p class="register-link">Xisaab ma leedid? <a href="register.html">Diiwaan Geli Bilaash</a></p>
+
+        <div class="guest-cta">
+          <p>Ima diiwaangasho rabid?</p>
+          <a href="index.html" class="btn-guest">Sii Wad Martida &#8599;</a>
+        </div>
+
+      </form>
+
+      <!-- SUCCESS -->
+      <div class="success-screen" id="successScreen">
+        <div class="s-icon">&#127881;</div>
+        <h3>Ku Soo Dhowow, <span class="welcome-name" id="welcomeName">Saaxiib</span>!</h3>
+        <p>Waxaad si guul leh ugu gashay xisaabta.<br/>Dalbo qahwa maanta!</p>
+        <a href="index.html" class="btn-submit"
+           style="display:inline-block;text-decoration:none;padding:.9rem 2rem;width:auto;">
+          Aad Menuga &#8594;
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FORGOT PASSWORD MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <!-- Form -->
+    <div id="modalForm">
+      <h3>&#128274; Fur-sirta Dib u Hel</h3>
+      <p>Geli iimaylkaaga hoose, waxaan kuu diri doonaa xiriirka dib-u-dejinta.</p>
+      <div class="input-wrap">
+        <span class="i-icon" style="z-index:1;">&#128140;</span>
+        <input type="email" id="resetEmail" placeholder="iimaylkaaga@example.com"/>
+      </div>
+      <div class="modal-btns">
+        <button class="modal-cancel" id="modalClose">Jooji</button>
+        <button class="modal-send" id="modalSend">Dir &#128140;</button>
+      </div>
+    </div>
+    <!-- Success -->
+    <div class="modal-success" id="modalSuccess">
+      <div class="ms-icon">&#128231;</div>
+      <h3>Waad Dir!</h3>
+      <p>Hubi sanduuqaaga iimaylka — link ayaad heli doontaa dib-u-dejinta.</p>
+      <div class="modal-btns" style="margin-top:1rem;">
+        <button class="modal-send" id="modalDone" style="flex:1;">Xidh</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Password toggle
+  document.getElementById('togglePw').addEventListener('click', () => {
+    const inp = document.getElementById('loginPw');
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+  });
+
+  // Login form
+  document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    let ok = true;
+    const email = document.getElementById('loginEmail').value.trim();
+    const pw    = document.getElementById('loginPw').value;
+
+    document.getElementById('emailErr').textContent = '';
+    document.getElementById('pwErr').textContent    = '';
+
+    if(!email){
+      document.getElementById('emailErr').textContent = 'Geli iimaylkaaga ama username-kaaga'; ok=false;
+    }
+    if(!pw){
+      document.getElementById('pwErr').textContent = 'Geli furaha sirta ah'; ok=false;
+    }
+    if(!ok) return;
+
+    const btn = document.getElementById('loginBtn');
+    btn.disabled = true;
+    btn.textContent = 'Soco...';
+
+    setTimeout(() => {
+      // Demo: success
+      document.getElementById('loginForm').style.display = 'none';
+      document.querySelector('.form-heading').style.display = 'none';
+      document.querySelector('.form-sub').style.display     = 'none';
+      document.getElementById('welcomeName').textContent    = email.split('@')[0];
+      document.getElementById('successScreen').style.display = 'block';
+    }, 1400);
+  });
+
+  // Forgot modal
+  document.getElementById('forgotLink').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('modalOverlay').classList.add('open');
+  });
+  const closeModal = () => {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.getElementById('modalForm').style.display    = '';
+    document.getElementById('modalSuccess').style.display = 'none';
+    document.getElementById('resetEmail').value = '';
+  };
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalDone').addEventListener('click',  closeModal);
+  document.getElementById('modalOverlay').addEventListener('click', (e) => {
+    if(e.target === document.getElementById('modalOverlay')) closeModal();
+  });
+  document.getElementById('modalSend').addEventListener('click', () => {
+    const em = document.getElementById('resetEmail').value.trim();
+    if(!em) return;
+    document.getElementById('modalForm').style.display    = 'none';
+    document.getElementById('modalSuccess').style.display = 'block';
+  });
+</script>
+
+</body>
+      </html>
