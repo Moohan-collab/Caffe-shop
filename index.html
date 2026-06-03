@@ -1325,7 +1325,7 @@ function sendMessage(e){
   btnIcon.textContent = '⏳';
   status.textContent = '';
 
-  emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, '#love-form')
+  emailjs.sendForm(service_j2uu8yq,template_0tc14oe, '#love-form')
     .then(() => {
       status.className = 'form-status success';
       status.textContent = 'waku mahadsan tahay boqoraydii fariinta quruxda badan ♥';
