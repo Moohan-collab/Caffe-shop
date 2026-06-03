@@ -6,10 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>With Love, For You 💕</title>
 
-<!-- EmailJS SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-<!-- Google Fonts: Cormorant Garamond (display) + Nunito (body) -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet"/>
@@ -605,13 +603,16 @@ header h1 em {
 
 .form-status {
   margin-top: 14px;
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   min-height: 24px;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+  font-family: 'Nunito', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
-.form-status.success { color: #3a9e6b; }
-.form-status.error   { color: #c0395f; }
+.form-status.success { color: #3a9e6b; font-weight: 600; }
+.form-status.error   { color: #c0395f; font-weight: 600; }
 
 /* ============================================================
    FOOTER
@@ -703,11 +704,11 @@ footer span { color: var(--rose); }
 }
 
 .gallery-item:hover img {
-  transform: scale(1.05); /* Sawirka xoogaa gudaha ayuu u weynaanayaa */
+  transform: scale(1.05);
 }
 
 /* ============================================================
-   MUSIC PLAYER CSS (GIFT 2) - HALKAS KU BADAL
+   MUSIC PLAYER CSS (GIFT 2)
    ============================================================ */
 .audio-player-container {
   background: var(--ivory);
@@ -716,7 +717,6 @@ footer span { color: var(--rose); }
   margin-top: 15px;
 }
 
-/* Disk-ga Wareegaya */
 .music-disc-wrapper {
   display: flex;
   flex-direction: column;
@@ -732,7 +732,6 @@ footer span { color: var(--rose); }
   transition: transform 0.3s ease;
 }
 
-/* Animation-ka Disk-ga marka uu wareegayo */
 .music-disc.playing {
   animation: spinDisk 4s linear infinite;
 }
@@ -741,7 +740,6 @@ footer span { color: var(--rose); }
   100% { transform: rotate(360deg); }
 }
 
-/* Hirarka Audio-ga (Waves) */
 .music-waves {
   display: flex;
   align-items: flex-end;
@@ -769,7 +767,6 @@ footer span { color: var(--rose); }
   100% { height: 25px; }
 }
 
-/* Qaybta Qoraalka Heesta */
 .song-detail {
   text-align: center;
   margin-bottom: 20px;
@@ -785,7 +782,6 @@ footer span { color: var(--rose); }
   font-style: italic;
 }
 
-/* Buttons-ka Koontaroolka */
 .player-controls {
   display: flex;
   justify-content: center;
@@ -817,7 +813,6 @@ footer span { color: var(--rose); }
   box-shadow: 0 4px 15px rgba(200,80,120,0.3);
 }
 
-/* Playlist-ka */
 .song-playlist {
   display: flex;
   flex-direction: column;
@@ -880,12 +875,8 @@ footer span { color: var(--rose); }
 </head>
 <body>
 
-<!-- Floating Hearts Canvas -->
 <canvas id="hearts-canvas"></canvas>
 
-<!-- ======================================================
-     HEADER
-     ====================================================== -->
 <header>
   <p class="header-eyebrow">A gift made just for you</p>
   <h1>With All My <em>Love</em></h1>
@@ -897,85 +888,65 @@ footer span { color: var(--rose); }
   </div>
 </header>
 
-<!-- ======================================================
-     GIFT BOXES
-     ====================================================== -->
 <section class="gifts-section">
   <p class="section-label">Fur gifts kaboqorada</p>
   <h2 class="section-title">kusoo dhawow noloshaydii </h2>
 
   <div class="gifts-grid">
 
-    <!-- Gift 1 -->
     <div class="gift-card" onclick="openModal('modal-letter')">
       <div class="gift-ribbon"></div>
       <span class="gift-icon"><i class="fas fa-image"></i></span>
       <h3>sawirada boqorada</h3>
       <p>fur waxa ku jira sawiro agtayda qiimo ka leh</p>
-<button class="gift-btn">Open Gift <i class="fas fa-gift"></i></button>
+      <button class="gift-btn">Open Gift <i class="fas fa-gift"></i></button>
     </div>
 
-    <!-- Gift 2 -->
     <div class="gift-card" onclick="openModal('modal-poem')">
       <div class="gift-ribbon"></div>
       <span class="gift-icon"><i class="fas fa-headphones"></i></span>
       <h3>Heeso jacayl</h3>
       <p>in ay qurux badan yihiin baa rajaynayaa .</p>
-<button class="gift-btn">Open Gift <i class="fas fa-gift"></i></button>
-
+      <button class="gift-btn">Open Gift <i class="fas fa-gift"></i></button>
     </div>
 
-    <!-- Gift 3 -->
     <div class="gift-card" onclick="openModal('modal-countdown')">
       <div class="gift-ribbon"></div>
-     <span class="gift-icon">
-    <i class="fas fa-hourglass-half"></i>
-</span>
+      <span class="gift-icon"><i class="fas fa-hourglass-half"></i></span>
       <h3>Sugi taanka wakhtigeena</h3>
       <p>halkaan gali wakhti kaas oo aad is leefahay riyadeena way rumoobaysaa.</p>
-<button class="gift-btn">Open Gift <i class="fas fa-gift"></i></button>
-
+      <button class="gift-btn">Open Gift <i class="fas fa-gift"></i></button>
     </div>
 
   </div>
 </section>
 
-
-
-<!-- ======================================================
-     MODAL 1 — LOVE LETTER
-     ====================================================== -->
 <div class="modal-overlay" id="modal-letter">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('modal-letter')" aria-label="Close">✕</button>
-        <div class="letter-header">
+    <div class="letter-header">
       <span class="stamp"><i class="fas fa-heart" style="color: var(--rose); font-size: 2.2rem;"></i></span>
       <h2>sawiro qurux badan 🌹</h2>
       <p style="color: var(--text-soft); font-style: italic; font-size: 0.95rem; margin-top: 5px;">qalpii boqoradayda quruxdeeda ma ila aragtaa</p>
     </div>
 
     <div class="photo-gallery-grid">
-      
       <div class="gallery-item">
         <img src="https://i.ibb.co/8ggqNNNv/IMG-20260505-WA0018.jpg" alt="Memory 1">
         <div class="gallery-caption">quruxdaas ilaahy hanoo daayo</div>
       </div>
-
       <div class="gallery-item">
         <img src="https://i.ibb.co/pr6wLGbx/IMG-20260505-WA0015.jpg" alt="Memory 2">
         <div class="gallery-caption">Your beautiful smile ♥</div>
       </div>
-
       <div class="gallery-item">
         <img src="https://i.ibb.co/v6JMskwz/IMG-20260505-WA0012.jpg" alt="Memory 3">
         <div class="gallery-caption">quruxlaydayda</div>
       </div>
-
       <div class="gallery-item">
         <img src="https://i.ibb.co/ccJm2xLQ/IMG-20260505-WA0009.jpg" alt="Memory 4">
         <div class="gallery-caption">camankaas kuus kuusan</div>
       </div>
-
     </div>
 
     <div class="wax-seal" style="margin-top: 40px;">
@@ -984,9 +955,6 @@ footer span { color: var(--rose); }
   </div>
 </div>
 
-<!-- ======================================================
-     MODAL 2 — POEM
-     ====================================================== -->
 <div class="modal-overlay" id="modal-poem">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('modal-poem')" aria-label="Close">✕</button>
@@ -997,7 +965,6 @@ footer span { color: var(--rose); }
     </div>
 
     <div class="audio-player-container">
-      
       <div class="music-disc-wrapper">
         <div class="music-disc" id="music-disc">
           <i class="fas fa-compact-disc"></i>
@@ -1009,7 +976,7 @@ footer span { color: var(--rose); }
 
       <div class="song-detail">
         <h3 id="current-song-title">Select a song below</h3>
-        <p id="current-song-artist">Sweet Melonies</p>
+        <p id="current-song-artist">Sweet Melodies</p>
       </div>
 
       <audio id="main-audio" src=""></audio>
@@ -1021,8 +988,7 @@ footer span { color: var(--rose); }
       </div>
 
       <div class="song-playlist">
-        
-        <div class="playlist-item active-song" onclick="selectSong(0, 'Heesta Jacaylka 1', 'Fanaanka 1', 'https://files.catbox.moe/5hcirk.mp3')">
+        <div class="playlist-item active-song" onclick="selectSong(0, 'yaabaxbiibi', 'najmo qurux', 'https://files.catbox.moe/5hcirk.mp3')">
           <div class="item-info">
             <span class="track-number">01</span>
             <div>
@@ -1054,15 +1020,11 @@ footer span { color: var(--rose); }
           </div>
           <i class="fas fa-play-circle play-icon"></i>
         </div>
-
-      </div> </div> </div>
-</div>
+      </div> 
+    </div> 
   </div>
 </div>
 
-<!-- ======================================================
-     MODAL 3 — COUNTDOWN + HEART
-     ====================================================== -->
 <div class="modal-overlay" id="modal-countdown">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('modal-countdown')" aria-label="Close">✕</button>
@@ -1072,14 +1034,12 @@ footer span { color: var(--rose); }
       <p>Gali tarikh aan tirin doono ilbiriqsiyada ilaa aan kula joogo</p>
     </div>
 
-    <!-- Animated SVG Heart -->
     <div class="heart-stage">
       <svg class="heart-svg" viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
         <path d="M50 85 C50 85 5 55 5 28 C5 14 16 5 28 5 C36 5 44 9 50 16 C56 9 64 5 72 5 C84 5 95 14 95 28 C95 55 50 85 50 85Z"/>
       </svg>
     </div>
 
-    <!-- Countdown Grid -->
     <div class="countdown-grid">
       <div class="cd-box"><span class="cd-num" id="cd-days">--</span><span class="cd-label">Days</span></div>
       <div class="cd-box"><span class="cd-num" id="cd-hours">--</span><span class="cd-label">Hours</span></div>
@@ -1091,9 +1051,6 @@ footer span { color: var(--rose); }
   </div>
 </div>
 
-<!-- ======================================================
-     SEND MESSAGE SECTION
-     ====================================================== -->
 <section class="message-section">
   <div class="message-inner">
     <p class="section-label">Ereyo qurux badan ii qor</p>
@@ -1111,7 +1068,7 @@ footer span { color: var(--rose); }
       </div>
 
       <button type="submit" class="submit-btn" id="submit-btn">
-        <span id="btn-text">Send with Love</span> <span id="btn-icon">💌</span>
+        <span id="btn-icon"><i class="fas fa-paper-plane"></i></span> <span id="btn-text">Send with Love</span>
       </button>
 
       <p class="form-status" id="form-status"></p>
@@ -1119,32 +1076,19 @@ footer span { color: var(--rose); }
   </div>
 </section>
 
-<!-- ======================================================
-     FOOTER
-     ====================================================== -->
 <footer>
-  Made with <span>♥</span> · Every word means it
+  created by <span>♥</span> · mahamed
 </footer>
 
-
-<!-- ======================================================
-     JAVASCRIPT
-     ====================================================== -->
 <script>
-/* ============================================================
-   ❶  EMAILJS CONFIGURATION
-   Replace the three placeholders below with your real credentials
-   from https://dashboard.emailjs.com
-   ============================================================ */
-const EMAILJS_PUBLIC_KEY  = '9TO7hHMapqy4U9kNz';   // ← paste your Public Key here
-const EMAILJS_SERVICE_ID  = 'service_j2uu8yq';   // ← paste your Service ID here
-const EMAILJS_TEMPLATE_ID = 'template_0tc14oe';  // ← paste your Template ID here
+const EMAILJS_PUBLIC_KEY  = '9TO7hHMapqy4U9kNz';   
+const EMAILJS_SERVICE_ID  = 'service_j2uu8yq';   
+const EMAILJS_TEMPLATE_ID = 'template_0tc14oe';  
 
 /* Initialize EmailJS */
 (function(){
   emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 })();
-
 
 /* ============================================================
    ❷  FLOATING HEARTS CANVAS
@@ -1206,7 +1150,6 @@ const EMAILJS_TEMPLATE_ID = 'template_0tc14oe';  // ← paste your Template ID h
   animate();
 })();
 
-
 /* ============================================================
    ❸  MODAL LOGIC
    ============================================================ */
@@ -1215,7 +1158,6 @@ function openModal(id){
   overlay.classList.add('active');
   document.body.style.overflow = 'hidden';
 
-  /* Animate poem stanzas when poem modal opens */
   if(id === 'modal-poem'){
     const stanzas = overlay.querySelectorAll('.poem-stanza');
     stanzas.forEach((s, i) => {
@@ -1224,7 +1166,6 @@ function openModal(id){
     });
   }
 
-  /* Start countdown ticker when countdown modal opens */
   if(id === 'modal-countdown'){
     tickCountdown();
   }
@@ -1235,33 +1176,22 @@ function closeModal(id){
   document.body.style.overflow = '';
 }
 
-/* Close on overlay click (outside box) */
 document.querySelectorAll('.modal-overlay').forEach(overlay => {
   overlay.addEventListener('click', function(e){
     if(e.target === this) closeModal(this.id);
   });
 });
 
-/* Close on Escape key */
 document.addEventListener('keydown', e => {
   if(e.key === 'Escape'){
-    document.querySelectorAll('.modal-overlay.active')
-      .forEach(el => closeModal(el.id));
+    document.querySelectorAll('.modal-overlay.active').forEach(el => closeModal(el.id));
   }
 });
-
 
 /* ============================================================
    ❹  COUNTDOWN TIMER
    ============================================================ */
-/* ============================================================
-   ❹  COUNTDOWN TIMER (TAARIIKHDA TOOS U DIYAARSAN)
-   ============================================================ */
-// Sxb, halkan ku qor taariikhda aad rabto (Sanadka-Bisha-Maalinta)
-// Tusaale ahaan: '2026-07-25' ayaan kuugu joray, waad badali kartaa sxb.
 let countdownTarget = new Date('2032-07-25T00:00:00'); 
-
-// Ticker-ka si toos ah ayuu u bilaabanayaa hadda
 let countdownInterval = setInterval(tickCountdown, 1000);
 tickCountdown(); 
 
@@ -1290,7 +1220,6 @@ function tickCountdown(){
   document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
   document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
 
-  // Ereyada dhiiri-gelinta ah ee hoos ku qormaya
   const msgs = [
     `Wahtiga ${d} maalmood aan is arki doono ama riyadeena ku rumoobayso ♥`,
     `${d} sleeps to go… I'm already counting ♥`,
@@ -1310,45 +1239,48 @@ function sendMessage(e){
   const btnIcon = document.getElementById('btn-icon');
   const status  = document.getElementById('form-status');
 
-  /* Basic validation */
   const name  = document.getElementById('from-name').value.trim();
   const msg   = document.getElementById('msg-body').value.trim();
 
   if(!name || !msg){
     status.className = 'form-status error';
-    status.textContent = 'boqoradyda wax ku qurux badan ii qor♥';
+    status.innerHTML = '<i class="fas fa-exclamation-circle"></i> Boqoraddayda, fadlan wax ku qurux badan ii qor ♥';
     return;
   }
 
   btn.disabled = true;
-  btnText.textContent = 'Sending…';
-  btnIcon.textContent = '⏳';
+  btnIcon.innerHTML = '<i class="fas fa-spinner fa-spin" style="color: #fff;"></i>';
+  btnText.textContent = ' Boqoraddii, fariintaada waa la dirayaa...';
   status.textContent = '';
 
-  emailjs.sendForm(service_j2uu8yq,template_0tc14oe, '#love-form')
+  emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, '#love-form')
     .then(() => {
       status.className = 'form-status success';
-      status.textContent = 'waku mahadsan tahay boqoraydii fariinta quruxda badan ♥';
-      btnText.textContent = 'Sent!';
-      btnIcon.textContent = '✓';
+      status.innerHTML = '<i class="fas fa-check-circle"></i> Waad ku mahadsan yahay boqoraddii fariinta quruxda badan ♥';
+      
+      btnIcon.innerHTML = '<i class="fas fa-check"></i>';
+      btnText.textContent = ' Sent!';
+      
       document.getElementById('love-form').reset();
       setTimeout(() => {
         btn.disabled = false;
+        btnIcon.innerHTML = '<i class="fas fa-paper-plane"></i>';
         btnText.textContent = 'Send with Love';
-        btnIcon.textContent = '💌';
       }, 4000);
     })
     .catch(err => {
       console.error('EmailJS error:', err);
       status.className = 'form-status error';
-      status.textContent = 'sorry waxbaa khaldan';
+      status.innerHTML = '<i class="fas fa-times-circle"></i> Sorry, waxbaa khaldan. Dib u tijaabi sxb.';
+      
       btn.disabled = false;
+      btnIcon.innerHTML = '<i class="fas fa-paper-plane"></i>';
       btnText.textContent = 'Send with Love';
-      btnIcon.textContent = '💌';
     });
 }
+
 /* ============================================================
-   MUSIC PLAYER LOGIC (GIFT 2) - HALKAS KU BADAL
+   ❻  MUSIC PLAYER LOGIC (GIFT 2)
    ============================================================ */
 let songsList = [
   { title: "yaabaxbiibi", artist: "najmo qurux", src: "https://files.catbox.moe/5hcirk.mp3" },
@@ -1365,7 +1297,6 @@ function selectSong(index, title, artist, src) {
   document.getElementById('current-song-title').textContent = title;
   document.getElementById('current-song-artist').textContent = artist;
   
-  // Bedel falka Playlist Active class
   let items = document.querySelectorAll('.playlist-item');
   items.forEach(item => item.classList.remove('active-song'));
   items[index].classList.add('active-song');
@@ -1375,7 +1306,6 @@ function selectSong(index, title, artist, src) {
 
 function togglePlay() {
   if (!audioObj.src) {
-    // Haddii aan hees la dooran, qaado heesta ugu horreysa
     selectSong(0, songsList[0].title, songsList[0].artist, songsList[0].src);
     return;
   }
@@ -1395,7 +1325,6 @@ function playAudio() {
 }
 
 function pauseAudio() {
-  audioObj.parse(); // Ama audioObj.pause();
   audioObj.pause();
   document.getElementById('play-btn').innerHTML = '<i class="fas fa-play"></i>';
   document.getElementById('music-disc').classList.remove('playing');
@@ -1414,9 +1343,7 @@ function prevSong() {
   selectSong(currentSongIndex, s.title, s.artist, s.src);
 }
 
-// Markay heestu dhammaato si toos ah u shid heesta xigta
 audioObj.addEventListener('ended', nextSong);
-
 </script>
 </body>
 </html>
