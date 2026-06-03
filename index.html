@@ -1,627 +1,1423 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Noir & Brew — Welcome</title>
-  <!-- Google Fonts: Cormorant Garamond (display) + Jost (body) -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <!-- Font Awesome 6 CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <style>
-    /* ===== CSS VARIABLES ===== */
-    :root {
-      --espresso:    #1a1008;
-      --roast:       #2c1a0e;
-      --bark:        #3d2b1f;
-      --mahogany:    #5c3d2e;
-      --caramel:     #a0622a;
-      --gold:        #c8922a;
-      --cream:       #e8d5b7;
-      --parchment:   #f2e8d5;
-      --fog:         #c9b99a;
-      --white:       #faf7f2;
-      --accent:      #d4a853;
-      --font-display:'Cormorant Garamond', Georgia, serif;
-      --font-body:   'Jost', sans-serif;
-    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>With Love, For You 💕</title>
 
-    /* ===== RESET & BASE ===== */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-body);
-      background-color: var(--espresso);
-      color: var(--cream);
-      overflow-x: hidden;
-    }
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-    /* ===== GRAIN OVERLAY ===== */
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.4;
-    }
+<!-- Google Fonts: Cormorant Garamond (display) + Nunito (body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet"/>
 
-    /* ===== NAV ===== */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.4rem 5vw;
-      background: linear-gradient(to bottom, rgba(26,16,8,0.95) 0%, transparent 100%);
-    }
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 1.6rem;
-      font-weight: 300;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      text-decoration: none;
-      display: flex; align-items: center; gap: 0.6rem;
-    }
-    .nav-logo i { font-size: 1.2rem; }
-    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-    .nav-link {
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--fog);
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    .nav-link:hover { color: var(--accent); }
-    .nav-cta {
-      background: transparent;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      padding: 0.5rem 1.4rem;
-      font-family: var(--font-body);
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: all 0.3s;
-    }
-    .nav-cta:hover { background: var(--accent); color: var(--espresso); }
+<style>
+/* ============================================================
+   CSS VARIABLES & RESET
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ===== HERO ===== */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
-    /* Hero background image placeholder */
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, var(--espresso) 0%, var(--roast) 40%, var(--bark) 100%);
-      z-index: 0;
-    }
-    /* Replace the src below with your own hero image */
-    .hero-bg img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      opacity: 0.22;
-      display: block;
-    }
-    .hero-overlay {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 60% 50%, rgba(200,146,42,0.08) 0%, rgba(26,16,8,0.7) 70%);
-      z-index: 1;
-    }
-    .hero-content {
-      position: relative; z-index: 2;
-      text-align: center;
-      padding: 2rem;
-      animation: fadeUp 1.2s ease both;
-    }
-    .hero-eyebrow {
-      font-family: var(--font-body);
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.4rem;
-      display: flex; align-items: center; justify-content: center; gap: 1rem;
-    }
-    .hero-eyebrow::before, .hero-eyebrow::after {
-      content: '';
-      display: block; width: 40px; height: 1px;
-      background: var(--accent); opacity: 0.6;
-    }
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(3.5rem, 9vw, 8rem);
-      font-weight: 300;
-      line-height: 0.95;
-      color: var(--parchment);
-      letter-spacing: -0.01em;
-      margin-bottom: 0.2rem;
-    }
-    .hero-title em {
-      font-style: italic;
-      color: var(--accent);
-    }
-    .hero-subtitle {
-      font-family: var(--font-display);
-      font-size: clamp(1rem, 2.5vw, 1.5rem);
-      font-weight: 300;
-      font-style: italic;
-      color: var(--fog);
-      margin-bottom: 3rem;
-      letter-spacing: 0.04em;
-    }
-    .hero-divider {
-      width: 60px; height: 1px;
-      background: var(--accent); opacity: 0.5;
-      margin: 1.2rem auto;
-    }
-    .hero-desc {
-      font-size: 0.92rem;
-      font-weight: 300;
-      color: var(--fog);
-      max-width: 480px;
-      margin: 0 auto 3rem;
-      line-height: 1.8;
-      letter-spacing: 0.02em;
-    }
-    .hero-cta-group {
-      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
-    }
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: var(--accent);
-      color: var(--espresso);
-      padding: 1rem 2.4rem;
-      font-family: var(--font-body);
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-primary::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: rgba(255,255,255,0.15);
-      transform: translateX(-100%);
-      transition: transform 0.3s;
-    }
-    .btn-primary:hover::after { transform: translateX(0); }
-    .btn-primary:hover { background: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(200,146,42,0.4); }
-    .btn-outline {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: transparent;
-      color: var(--cream);
-      border: 1px solid rgba(232,213,183,0.4);
-      padding: 1rem 2.4rem;
-      font-family: var(--font-body);
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: all 0.3s;
-    }
-    .btn-outline:hover {
-      border-color: var(--cream);
-      background: rgba(232,213,183,0.08);
-      transform: translateY(-2px);
-    }
+:root {
+  --rose:        #e8547a;
+  --rose-light:  #f7a8bc;
+  --rose-pale:   #fde8ef;
+  --crimson:     #c0395f;
+  --blush:       #fff0f4;
+  --petal:       #ffe4ed;
+  --ivory:       #fffaf8;
+  --text-dark:   #3a1f28;
+  --text-mid:    #7a4055;
+  --text-soft:   #b07088;
+  --gold:        #d4a853;
+  --shadow:      rgba(200, 80, 120, 0.18);
+}
 
-    /* ===== SCROLL INDICATOR ===== */
-    .scroll-indicator {
-      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-      z-index: 2; text-align: center;
-      animation: bounce 2s infinite;
-    }
-    .scroll-indicator span {
-      display: block;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--fog);
-      margin-bottom: 0.5rem;
-    }
-    .scroll-indicator i { color: var(--accent); font-size: 0.85rem; }
+html { scroll-behavior: smooth; }
 
-    /* ===== STRIP: TAGLINE ===== */
-    .tagline-strip {
-      background: var(--roast);
-      border-top: 1px solid rgba(200,146,42,0.15);
-      border-bottom: 1px solid rgba(200,146,42,0.15);
-      padding: 1.2rem 5vw;
-      display: flex; gap: 4rem; justify-content: center; align-items: center; flex-wrap: wrap;
-    }
-    .tagline-item {
-      display: flex; align-items: center; gap: 0.6rem;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--fog);
-    }
-    .tagline-item i { color: var(--accent); }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--blush);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
 
-    /* ===== FEATURED SECTION ===== */
-    .section { padding: 6rem 5vw; }
-    .section-label {
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.8rem;
-    }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 300;
-      color: var(--parchment);
-      line-height: 1.1;
-      margin-bottom: 1rem;
-    }
-    .section-title em { font-style: italic; color: var(--accent); }
-    .section-body {
-      font-size: 0.9rem;
-      font-weight: 300;
-      color: var(--fog);
-      line-height: 1.9;
-      max-width: 520px;
-    }
+/* ============================================================
+   FLOATING HEARTS CANVAS
+   ============================================================ */
+#hearts-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
 
-    /* ===== FEATURED GRID ===== */
-    .featured-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-      background: var(--bark);
-      margin-top: 4rem;
-    }
-    .featured-card {
-      background: var(--roast);
-      position: relative;
-      overflow: hidden;
-      min-height: 400px;
-    }
-    .featured-card:first-child { grid-row: span 2; min-height: 600px; }
-    /* Image placeholder — replace src with your own image */
-    .featured-card img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      opacity: 0.55;
-      transition: opacity 0.5s, transform 0.6s;
-    }
-    .featured-card:hover img { opacity: 0.7; transform: scale(1.04); }
-    .featured-card-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(26,16,8,0.9) 0%, transparent 60%);
-    }
-    .featured-card-info {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 2rem;
-    }
-    .featured-card-tag {
-      font-size: 0.65rem;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.4rem;
-    }
-    .featured-card-title {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      font-weight: 300;
-      color: var(--parchment);
-    }
+/* ============================================================
+   HERO HEADER
+   ============================================================ */
+header {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 80px 20px 50px;
+  background: linear-gradient(160deg, #fff5f8 0%, #ffe8f0 50%, #ffd6e7 100%);
+  border-bottom: 1px solid #fbc9da;
+  overflow: hidden;
+}
 
-    /* ===== EXPERIENCE SECTION ===== */
-    .experience-section {
-      padding: 6rem 5vw;
-      background: var(--roast);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5vw;
-      align-items: center;
-    }
-    .experience-image {
-      position: relative;
-    }
-    /* Replace src with your own image */
-    .experience-image img {
-      width: 100%; aspect-ratio: 4/5;
-      object-fit: cover;
-      display: block;
-      opacity: 0.75;
-    }
-    .experience-image::after {
-      content: '';
-      position: absolute;
-      top: 1.5rem; left: 1.5rem; right: -1.5rem; bottom: -1.5rem;
-      border: 1px solid rgba(200,146,42,0.25);
-      z-index: -1;
-    }
-    .experience-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-    .stat-item {}
-    .stat-number {
-      font-family: var(--font-display);
-      font-size: 2.8rem;
-      font-weight: 300;
-      color: var(--accent);
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--fog);
-      margin-top: 0.3rem;
-    }
+header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 600px 300px at 20% 50%, rgba(248, 170, 195, 0.25) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 400px at 80% 20%, rgba(255, 200, 220, 0.2) 0%, transparent 60%);
+  pointer-events: none;
+}
 
-    /* ===== CTA SECTION ===== */
-    .cta-section {
-      padding: 7rem 5vw;
-      text-align: center;
-      background: linear-gradient(135deg, var(--bark) 0%, var(--roast) 100%);
-      position: relative;
-      overflow: hidden;
-    }
-    .cta-section::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 50%, rgba(200,146,42,0.07) 0%, transparent 70%);
-    }
-    .cta-section .section-title { max-width: 640px; margin: 0 auto 0.8rem; }
-    .cta-section .section-body { margin: 0 auto 3rem; }
-    .cta-section .hero-cta-group { justify-content: center; }
+.header-eyebrow {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 300;
+  font-size: 0.78rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 18px;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.2s forwards;
+}
 
-    /* ===== FOOTER ===== */
-    footer {
-      background: var(--espresso);
-      border-top: 1px solid rgba(200,146,42,0.12);
-      padding: 3rem 5vw 2rem;
-    }
-    .footer-inner {
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;
-    }
-    .footer-brand {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      font-weight: 300;
-      color: var(--accent);
-      letter-spacing: 0.08em;
-    }
-    .footer-links { display: flex; gap: 1.5rem; }
-    .footer-link {
-      font-size: 0.75rem;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--fog);
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    .footer-link:hover { color: var(--accent); }
-    .footer-copy {
-      width: 100%;
-      text-align: center;
-      font-size: 0.72rem;
-      color: rgba(201,185,154,0.35);
-      letter-spacing: 0.08em;
-      margin-top: 2rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid rgba(200,146,42,0.08);
-    }
+header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  line-height: 1.05;
+  color: var(--text-dark);
+  opacity: 0;
+  animation: fadeUp 1s ease 0.5s forwards;
+}
 
-    /* ===== ANIMATIONS ===== */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50%       { transform: translateX(-50%) translateY(8px); }
-    }
+header h1 em {
+  font-style: italic;
+  color: var(--rose);
+}
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 900px) {
-      .featured-grid { grid-template-columns: 1fr; }
-      .featured-card:first-child { grid-row: auto; min-height: 400px; }
-      .experience-section { grid-template-columns: 1fr; }
-      .experience-image::after { display: none; }
-    }
-    @media (max-width: 600px) {
-      .nav-links { display: none; }
-      .tagline-strip { gap: 1.5rem; }
-    }
-  </style>
+.header-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--text-soft);
+  margin-top: 16px;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.8s forwards;
+}
+
+.header-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 32px auto 0;
+  opacity: 0;
+  animation: fadeUp 1s ease 1s forwards;
+}
+.header-divider span { width: 60px; height: 1px; background: var(--rose-light); display: block; }
+.header-divider .heart-icon { color: var(--rose); font-size: 1.1rem; }
+
+/* ============================================================
+   GIFTS SECTION
+   ============================================================ */
+.gifts-section {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 70px auto;
+  padding: 0 24px;
+}
+
+.section-label {
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 300;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--text-dark);
+  margin-bottom: 52px;
+}
+
+.gifts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+}
+
+/* ---- Gift Card ---- */
+.gift-card {
+  background: var(--ivory);
+  border: 1px solid rgba(232, 84, 122, 0.15);
+  border-radius: 28px;
+  padding: 44px 32px 36px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(.22,.68,0,1.2), box-shadow 0.35s ease, border-color 0.3s;
+  box-shadow: 0 8px 40px var(--shadow);
+}
+
+.gift-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(248, 170, 195, 0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.gift-card:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 20px 60px rgba(200,80,120,0.22); border-color: var(--rose-light); }
+.gift-card:hover::before { opacity: 1; }
+.gift-card:active { transform: translateY(-4px) scale(0.99); }
+
+.gift-ribbon {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 36px;
+  background: linear-gradient(to bottom, var(--rose), var(--rose-light));
+  border-radius: 0 0 4px 4px;
+}
+.gift-ribbon::before, .gift-ribbon::after {
+  content: '';
+  position: absolute;
+  top: 24px;
+  width: 36px; height: 4px;
+  background: linear-gradient(to right, var(--rose-light), var(--rose));
+  border-radius: 4px;
+}
+.gift-ribbon::before { left: -16px; transform: rotate(-30deg); }
+.gift-ribbon::after  { right: -16px; transform: rotate(30deg); }
+
+.gift-icon {
+  font-size: 3.2rem;
+  margin: 20px 0 18px;
+  display: block;
+  filter: drop-shadow(0 4px 12px rgba(200,80,120,0.3));
+  transition: transform 0.4s cubic-bezier(.22,.68,0,1.3);
+}
+.gift-card:hover .gift-icon { transform: scale(1.15) rotate(-5deg); }
+
+.gift-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.gift-card p {
+  font-size: 0.88rem;
+  color: var(--text-soft);
+  line-height: 1.65;
+  margin-bottom: 26px;
+}
+
+.gift-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: linear-gradient(135deg, var(--rose), var(--crimson));
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 11px 26px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+  box-shadow: 0 4px 18px rgba(200,80,120,0.35);
+}
+.gift-btn:hover { opacity: 0.9; transform: scale(1.04); }
+
+/* ============================================================
+   MODALS
+   ============================================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  background: rgba(60, 10, 25, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.modal-overlay.active { opacity: 1; visibility: visible; }
+
+.modal-box {
+  background: var(--ivory);
+  border-radius: 32px;
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  padding: 56px 48px 48px;
+  box-shadow: 0 32px 80px rgba(150, 30, 70, 0.25);
+  transform: translateY(40px) scale(0.96);
+  transition: transform 0.4s cubic-bezier(.22,.68,0,1.15);
+  scrollbar-width: thin;
+  scrollbar-color: var(--rose-light) transparent;
+}
+.modal-overlay.active .modal-box { transform: translateY(0) scale(1); }
+
+.modal-close {
+  position: absolute;
+  top: 20px; right: 22px;
+  background: var(--rose-pale);
+  border: none;
+  border-radius: 50%;
+  width: 38px; height: 38px;
+  font-size: 1.1rem;
+  color: var(--rose);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+}
+.modal-close:hover { background: var(--rose-light); transform: rotate(90deg); }
+
+/* ---- Gift 1: Love Letter ---- */
+.letter-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.letter-header .stamp {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 12px;
+  animation: pulse 2s ease-in-out infinite;
+}
+.letter-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 2rem;
+  color: var(--crimson);
+}
+
+.letter-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.12rem;
+  line-height: 1.9;
+  color: var(--text-mid);
+  border-left: 3px solid var(--rose-light);
+  padding-left: 20px;
+  margin-bottom: 28px;
+}
+.letter-body p { margin-bottom: 16px; }
+.letter-body p:first-child { font-style: italic; font-size: 1.2rem; color: var(--rose); }
+
+.letter-sign {
+  text-align: right;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--crimson);
+}
+
+/* Wax seal decoration */
+.wax-seal {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+.wax-seal .seal {
+  width: 60px; height: 60px;
+  background: radial-gradient(circle at 35% 35%, #e87a9a, var(--crimson));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 6px 20px rgba(180,40,80,0.35), inset 0 -3px 10px rgba(0,0,0,0.15);
+  animation: sealFloat 3s ease-in-out infinite;
+}
+
+/* ---- Gift 2: Poem ---- */
+.poem-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.poem-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  color: var(--crimson);
+  margin-bottom: 6px;
+}
+.poem-header .poem-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+}
+
+.poem-stanza {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  line-height: 2;
+  color: var(--text-mid);
+  margin-bottom: 28px;
+  position: relative;
+  padding: 20px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.poem-stanza.visible { opacity: 1; transform: translateY(0); }
+.poem-stanza em { color: var(--rose); font-style: italic; }
+
+.poem-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 8px 0 28px;
+  color: var(--rose-light);
+  font-size: 0.8rem;
+}
+.poem-divider::before, .poem-divider::after {
+  content: ''; display: block;
+  width: 50px; height: 1px;
+  background: var(--rose-light);
+}
+
+/* ---- Gift 3: Countdown + Heart animation ---- */
+.countdown-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.countdown-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.9rem;
+  color: var(--crimson);
+  margin-bottom: 6px;
+}
+.countdown-header p {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+/* Big animated SVG heart */
+.heart-stage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0 24px;
+}
+.heart-svg {
+  width: 110px; height: 110px;
+  animation: heartBeat 1.2s ease-in-out infinite;
+}
+.heart-svg path { fill: var(--rose); }
+
+/* Countdown display */
+.countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 30px;
+}
+.cd-box {
+  background: linear-gradient(135deg, #fff0f4, #ffdce8);
+  border: 1px solid rgba(232,84,122,0.2);
+  border-radius: 18px;
+  padding: 16px 8px;
+  text-align: center;
+}
+.cd-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 2.4rem;
+  color: var(--crimson);
+  line-height: 1;
+  display: block;
+}
+.cd-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-top: 4px;
+  display: block;
+}
+
+/* Target date input */
+.cd-date-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.cd-date-row label {
+  font-size: 0.82rem;
+  color: var(--text-soft);
+}
+.cd-date-row input[type="date"] {
+  border: 1px solid var(--rose-light);
+  border-radius: 10px;
+  padding: 7px 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  color: var(--text-dark);
+  background: var(--ivory);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.cd-date-row input:focus { border-color: var(--rose); }
+.cd-date-row button {
+  background: var(--rose);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 7px 16px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.cd-date-row button:hover { background: var(--crimson); }
+
+.cd-message {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--rose);
+  min-height: 30px;
+  margin-top: 12px;
+}
+
+/* ============================================================
+   SEND MESSAGE SECTION
+   ============================================================ */
+.message-section {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(160deg, #fff0f4 0%, #fde4ed 60%, #ffe0ea 100%);
+  border-top: 1px solid #fbc9da;
+  padding: 80px 24px 90px;
+}
+
+.message-inner {
+  max-width: 580px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.message-inner .section-title { margin-bottom: 10px; }
+.message-inner .section-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: var(--text-soft);
+  font-size: 1rem;
+  margin-bottom: 40px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+.form-group label {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-bottom: 8px;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background: var(--ivory);
+  border: 1px solid rgba(232,84,122,0.2);
+  border-radius: 14px;
+  padding: 13px 18px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.92rem;
+  color: var(--text-dark);
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  resize: none;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--rose);
+  box-shadow: 0 0 0 4px rgba(232,84,122,0.1);
+}
+.form-group textarea { min-height: 130px; }
+
+.submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--rose), var(--crimson));
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 16px 32px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  margin-top: 8px;
+  box-shadow: 0 6px 24px rgba(200,80,120,0.35);
+  transition: opacity 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.submit-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+.submit-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+
+.form-status {
+  margin-top: 14px;
+  font-size: 0.88rem;
+  min-height: 24px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+}
+.form-status.success { color: #3a9e6b; }
+.form-status.error   { color: #c0395f; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  letter-spacing: 0.06em;
+  border-top: 1px solid #fbc9da;
+  background: var(--blush);
+}
+footer span { color: var(--rose); }
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.12); }
+}
+@keyframes heartBeat {
+  0%   { transform: scale(1); }
+  14%  { transform: scale(1.15); }
+  28%  { transform: scale(1); }
+  42%  { transform: scale(1.1); }
+  70%  { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+@keyframes sealFloat {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50%       { transform: translateY(-6px) rotate(5deg); }
+}
+@keyframes floatUp {
+  0%   { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.85; }
+  100% { transform: translateY(-110vh) scale(0.3) rotate(360deg); opacity: 0; }
+}
+
+/* ============================================================
+   QAYBTA CUSUB EE PHOTO GALLERY (GIFT 1)
+   ============================================================ */
+.photo-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.gallery-item {
+  background: var(--blush);
+  border: 1px solid rgba(232, 84, 122, 0.1);
+  border-radius: 18px;
+  padding: 10px;
+  box-shadow: 0 4px 15px rgba(200, 80, 120, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.5s ease;
+}
+
+.gallery-caption {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--text-mid);
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+/* Animations marka mouse-ka la dul dhigo (Hover) */
+.gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(200, 80, 120, 0.18);
+  border-color: var(--rose-light);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05); /* Sawirka xoogaa gudaha ayuu u weynaanayaa */
+}
+
+/* ============================================================
+   MUSIC PLAYER CSS (GIFT 2) - HALKAS KU BADAL
+   ============================================================ */
+.audio-player-container {
+  background: var(--ivory);
+  border-radius: 24px;
+  padding: 20px 10px;
+  margin-top: 15px;
+}
+
+/* Disk-ga Wareegaya */
+.music-disc-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.music-disc {
+  font-size: 5.5rem;
+  color: var(--rose);
+  filter: drop-shadow(0 8px 20px var(--shadow));
+  transition: transform 0.3s ease;
+}
+
+/* Animation-ka Disk-ga marka uu wareegayo */
+.music-disc.playing {
+  animation: spinDisk 4s linear infinite;
+}
+
+@keyframes spinDisk {
+  100% { transform: rotate(360deg); }
+}
+
+/* Hirarka Audio-ga (Waves) */
+.music-waves {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 25px;
+  margin-top: 15px;
+  opacity: 0;
+}
+.music-waves.playing { opacity: 1; }
+
+.music-waves span {
+  width: 4px;
+  height: 100%;
+  background-color: var(--rose-light);
+  border-radius: 2px;
+  animation: bounceWaves 1s ease-in-out infinite alternate;
+}
+.music-waves span:nth-child(2) { animation-delay: 0.2s; background-color: var(--rose); }
+.music-waves span:nth-child(3) { animation-delay: 0.4s; background-color: var(--crimson); }
+.music-waves span:nth-child(4) { animation-delay: 0.1s; background-color: var(--rose); }
+.music-waves span:nth-child(5) { animation-delay: 0.3s; background-color: var(--rose-light); }
+
+@keyframes bounceWaves {
+  0% { height: 4px; }
+  100% { height: 25px; }
+}
+
+/* Qaybta Qoraalka Heesta */
+.song-detail {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.song-detail h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  color: var(--text-dark);
+}
+.song-detail p {
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  font-style: italic;
+}
+
+/* Buttons-ka Koontaroolka */
+.player-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 25px;
+}
+.control-btn {
+  background: var(--rose-pale);
+  border: none;
+  color: var(--crimson);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+.control-btn:hover {
+  background: var(--rose-light);
+  transform: scale(1.05);
+}
+.control-btn.play-main {
+  background: linear-gradient(135deg, var(--rose), var(--crimson));
+  color: white;
+  width: 55px;
+  height: 55px;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 15px rgba(200,80,120,0.3);
+}
+
+/* Playlist-ka */
+.song-playlist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+.playlist-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(232,84,122,0.1);
+  padding: 12px 16px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.playlist-item:hover {
+  background: var(--rose-pale);
+  border-color: var(--rose-light);
+}
+.playlist-item.active-song {
+  background: var(--blush);
+  border-color: var(--rose);
+}
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.track-number {
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  font-weight: bold;
+}
+.item-info h4 {
+  font-size: 0.92rem;
+  color: var(--text-dark);
+}
+.item-info p {
+  font-size: 0.78rem;
+  color: var(--text-soft);
+}
+.play-icon {
+  color: var(--rose);
+  font-size: 1.1rem;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 520px) {
+  .modal-box { padding: 44px 24px 36px; }
+  .countdown-grid { grid-template-columns: repeat(2, 1fr); }
+  .cd-num { font-size: 2rem; }
+}
+</style>
 </head>
 <body>
 
-  <!-- ===== NAVIGATION ===== -->
-  <nav class="nav">
-    <a href="welcome.html" class="nav-logo">
-      <i class="fa-solid fa-mug-hot"></i> Noir &amp; Brew
-    </a>
-    <div class="nav-links">
-      <a href="#experience" class="nav-link">Our Story</a>
-      <a href="#menu-preview" class="nav-link">Menu</a>
-      <a href="login.html" class="nav-link">Login</a>
-      <a href="register.html" class="nav-cta">Sign Up</a>
-    </div>
-  </nav>
+<!-- Floating Hearts Canvas -->
+<canvas id="hearts-canvas"></canvas>
 
-  <!-- ===== HERO ===== -->
-  <section class="hero">
-    <!-- BACKGROUND IMAGE PLACEHOLDER: Replace the src with your own hero image URL -->
-    <div class="hero-bg">
-      <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1600" alt="Coffee shop ambience background"/>
-    </div>
-    <div class="hero-overlay"></div>
+<!-- ======================================================
+     HEADER
+     ====================================================== -->
+<header>
+  <p class="header-eyebrow">A gift made just for you</p>
+  <h1>With All My <em>Love</em></h1>
+  <p class="header-subtitle">Three little boxes, one very big heart</p>
+  <div class="header-divider">
+    <span></span>
+    <span class="heart-icon">♥</span>
+    <span></span>
+  </div>
+</header>
 
-    <div class="hero-content">
-      <p class="hero-eyebrow">
-        <i class="fa-solid fa-circle-dot fa-xs"></i>
-        Est. 2024 &mdash; Artisan Roasters
-      </p>
-      <h1 class="hero-title">
-        Where Every<br/><em>Cup</em> Tells<br/>a Story
-      </h1>
-      <div class="hero-divider"></div>
-      <p class="hero-subtitle">Crafted with intention. Served with soul.</p>
-      <p class="hero-desc">
-        Noir &amp; Brew is more than a coffee shop. It is a sanctuary for those who seek warmth, depth, and the quiet ritual of a perfectly made cup.
-      </p>
-      <div class="hero-cta-group">
-        <a href="register.html" class="btn-primary">
-          <i class="fa-solid fa-user-plus"></i> Sign Up Free
-        </a>
-        <a href="login.html" class="btn-outline">
-          <i class="fa-solid fa-arrow-right-to-bracket"></i> Login
-        </a>
+<!-- ======================================================
+     GIFT BOXES
+     ====================================================== -->
+<section class="gifts-section">
+  <p class="section-label">Fur gifts kaboqorada</p>
+  <h2 class="section-title">kusoo dhawow noloshaydii </h2>
+
+  <div class="gifts-grid">
+
+    <!-- Gift 1 -->
+    <div class="gift-card" onclick="openModal('modal-letter')">
+      <div class="gift-ribbon"></div>
+      <span class="gift-icon"><i class="fas fa-image"></i></span>
+      <h3>sawirada boqorada</h3>
+      <p>fur waxa ku jira sawiro agtayda qiimo ka leh</p>
+<button class="gift-btn">Open Gift <i class="fas fa-gift"></i></button>
+    </div>
+
+    <!-- Gift 2 -->
+    <div class="gift-card" onclick="openModal('modal-poem')">
+      <div class="gift-ribbon"></div>
+      <span class="gift-icon"><i class="fas fa-headphones"></i></span>
+      <h3>Heeso jacayl</h3>
+      <p>in ay qurux badan yihiin baa rajaynayaa .</p>
+<button class="gift-btn">Open Gift <i class="fas fa-gift"></i></button>
+
+    </div>
+
+    <!-- Gift 3 -->
+    <div class="gift-card" onclick="openModal('modal-countdown')">
+      <div class="gift-ribbon"></div>
+     <span class="gift-icon">
+    <i class="fas fa-hourglass-half"></i>
+</span>
+      <h3>Sugi taanka wakhtigeena</h3>
+      <p>halkaan gali wakhti kaas oo aad is leefahay riyadeena way rumoobaysaa.</p>
+<button class="gift-btn">Open Gift <i class="fas fa-gift"></i></button>
+
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- ======================================================
+     MODAL 1 — LOVE LETTER
+     ====================================================== -->
+<div class="modal-overlay" id="modal-letter">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-letter')" aria-label="Close">✕</button>
+        <div class="letter-header">
+      <span class="stamp"><i class="fas fa-heart" style="color: var(--rose); font-size: 2.2rem;"></i></span>
+      <h2>sawiro qurux badan 🌹</h2>
+      <p style="color: var(--text-soft); font-style: italic; font-size: 0.95rem; margin-top: 5px;">qalpii boqoradayda quruxdeeda ma ila aragtaa</p>
+    </div>
+
+    <div class="photo-gallery-grid">
+      
+      <div class="gallery-item">
+        <img src="https://i.ibb.co/8ggqNNNv/IMG-20260505-WA0018.jpg" alt="Memory 1">
+        <div class="gallery-caption">quruxdaas ilaahy hanoo daayo</div>
       </div>
+
+      <div class="gallery-item">
+        <img src="https://i.ibb.co/pr6wLGbx/IMG-20260505-WA0015.jpg" alt="Memory 2">
+        <div class="gallery-caption">Your beautiful smile ♥</div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="https://i.ibb.co/v6JMskwz/IMG-20260505-WA0012.jpg" alt="Memory 3">
+        <div class="gallery-caption">quruxlaydayda</div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="https://i.ibb.co/ccJm2xLQ/IMG-20260505-WA0009.jpg" alt="Memory 4">
+        <div class="gallery-caption">camankaas kuus kuusan</div>
+      </div>
+
     </div>
 
-    <div class="scroll-indicator">
-      <span>Scroll</span>
-      <i class="fa-solid fa-chevron-down"></i>
-    </div>
-  </section>
-
-  <!-- ===== TAGLINE STRIP ===== -->
-  <div class="tagline-strip">
-    <div class="tagline-item">
-      <i class="fa-solid fa-seedling"></i> Single-Origin Beans
-    </div>
-    <div class="tagline-item">
-      <i class="fa-solid fa-fire-flame-curved"></i> Slow-Roasted Daily
-    </div>
-    <div class="tagline-item">
-      <i class="fa-solid fa-location-dot"></i> Downtown Flagship
-    </div>
-    <div class="tagline-item">
-      <i class="fa-solid fa-star"></i> Award-Winning Baristas
+    <div class="wax-seal" style="margin-top: 40px;">
+      <div class="seal">♥</div>
     </div>
   </div>
+</div>
 
-  <!-- ===== FEATURED GRID ===== -->
-  <section class="section" id="menu-preview">
-    <p class="section-label">From the Menu</p>
-    <h2 class="section-title">Curated for the<br/><em>Discerning</em> Palate</h2>
-  </section>
+<!-- ======================================================
+     MODAL 2 — POEM
+     ====================================================== -->
+<div class="modal-overlay" id="modal-poem">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-poem')" aria-label="Close">✕</button>
 
-  <div class="featured-grid">
-    <!-- FEATURED CARD 1 (large) — replace src with your own image -->
-    <div class="featured-card">
-      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800" alt="Espresso shot"/>
-      <div class="featured-card-overlay"></div>
-      <div class="featured-card-info">
-        <p class="featured-card-tag">Signature</p>
-        <h3 class="featured-card-title">The Dark Ritual Espresso</h3>
-      </div>
+    <div class="poem-header">
+      <h2><i class="fas fa-music" style="color: var(--rose);"></i> Melodies of Love</h2>
+      <p class="poem-subtitle">Songs that remind me of you</p>
     </div>
-    <!-- FEATURED CARD 2 — replace src with your own image -->
-    <div class="featured-card">
-      <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=800" alt="Cappuccino"/>
-      <div class="featured-card-overlay"></div>
-      <div class="featured-card-info">
-        <p class="featured-card-tag">Bestseller</p>
-        <h3 class="featured-card-title">Velvet Cappuccino</h3>
+
+    <div class="audio-player-container">
+      
+      <div class="music-disc-wrapper">
+        <div class="music-disc" id="music-disc">
+          <i class="fas fa-compact-disc"></i>
+        </div>
+        <div class="music-waves" id="music-waves">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
       </div>
-    </div>
-    <!-- FEATURED CARD 3 — replace src with your own image -->
-    <div class="featured-card">
-      <img src="https://images.unsplash.com/photo-1561047029-3000c68339ca?w=800" alt="Cold brew"/>
-      <div class="featured-card-overlay"></div>
-      <div class="featured-card-info">
-        <p class="featured-card-tag">Cold Series</p>
-        <h3 class="featured-card-title">Midnight Cold Brew</h3>
+
+      <div class="song-detail">
+        <h3 id="current-song-title">Select a song below</h3>
+        <p id="current-song-artist">Sweet Melonies</p>
       </div>
-    </div>
+
+      <audio id="main-audio" src=""></audio>
+
+      <div class="player-controls">
+        <button class="control-btn" id="prev-btn" onclick="prevSong()"><i class="fas fa-backward"></i></button>
+        <button class="control-btn play-main" id="play-btn" onclick="togglePlay()"><i class="fas fa-play"></i></button>
+        <button class="control-btn" id="next-btn" onclick="nextSong()"><i class="fas fa-forward"></i></button>
+      </div>
+
+      <div class="song-playlist">
+        
+        <div class="playlist-item active-song" onclick="selectSong(0, 'Heesta Jacaylka 1', 'Fanaanka 1', 'https://files.catbox.moe/5hcirk.mp3')">
+          <div class="item-info">
+            <span class="track-number">01</span>
+            <div>
+              <h4>yaabaxbiibi</h4>
+              <p>najmo qurux</p>
+            </div>
+          </div>
+          <i class="fas fa-play-circle play-icon"></i>
+        </div>
+
+        <div class="playlist-item" onclick="selectSong(1, 'Heesta Jacaylka 2', 'Fanaanka 2', 'https://files.catbox.moe/xkc329.mp3')">
+          <div class="item-info">
+            <span class="track-number">02</span>
+            <div>
+              <h4>Heesta Jacaylka 2</h4>
+              <p>Fanaanka 2</p>
+            </div>
+          </div>
+          <i class="fas fa-play-circle play-icon"></i>
+        </div>
+
+        <div class="playlist-item" onclick="selectSong(2, 'Muuqaalka Naftayda', 'Fanaanka 3', 'https://files.catbox.moe/hrsn8p.mp3')">
+          <div class="item-info">
+            <span class="track-number">03</span>
+            <div>
+              <h4>Muuqaalka Naftayda</h4>
+              <p>Fanaanka 3</p>
+            </div>
+          </div>
+          <i class="fas fa-play-circle play-icon"></i>
+        </div>
+
+      </div> </div> </div>
+</div>
   </div>
+</div>
 
-  <!-- ===== EXPERIENCE SECTION ===== -->
-  <section class="experience-section" id="experience">
-    <div class="experience-image">
-      <!-- Replace src with your own image -->
-      <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800" alt="Coffee shop interior"/>
+<!-- ======================================================
+     MODAL 3 — COUNTDOWN + HEART
+     ====================================================== -->
+<div class="modal-overlay" id="modal-countdown">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-countdown')" aria-label="Close">✕</button>
+
+    <div class="countdown-header">
+      <h2>💞 Tirinta wakhtiga</h2>
+      <p>Gali tarikh aan tirin doono ilbiriqsiyada ilaa aan kula joogo</p>
     </div>
-    <div class="experience-text">
-      <p class="section-label">Our Philosophy</p>
-      <h2 class="section-title">More Than<br/><em>Coffee</em></h2>
-      <p class="section-body">
-        Every bean is sourced with care, every roast is calibrated with precision, and every cup is a moment worth pausing for. We believe in the art of slowness — of letting quality speak for itself.
-      </p>
-      <div class="experience-stats">
-        <div class="stat-item">
-          <div class="stat-number">14+</div>
-          <div class="stat-label">Origin Countries</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">300+</div>
-          <div class="stat-label">Daily Cups Served</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">8</div>
-          <div class="stat-label">Expert Baristas</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">5</div>
-          <div class="stat-label">Roast Profiles</div>
-        </div>
+
+    <!-- Animated SVG Heart -->
+    <div class="heart-stage">
+      <svg class="heart-svg" viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 85 C50 85 5 55 5 28 C5 14 16 5 28 5 C36 5 44 9 50 16 C56 9 64 5 72 5 C84 5 95 14 95 28 C95 55 50 85 50 85Z"/>
+      </svg>
+    </div>
+
+    <!-- Countdown Grid -->
+    <div class="countdown-grid">
+      <div class="cd-box"><span class="cd-num" id="cd-days">--</span><span class="cd-label">Days</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-hours">--</span><span class="cd-label">Hours</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-mins">--</span><span class="cd-label">Minutes</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-secs">--</span><span class="cd-label">Seconds</span></div>
+    </div>
+
+    <p class="cd-message" id="cd-msg">Wakhti qurux badan gali qalpi♥</p>
+  </div>
+</div>
+
+<!-- ======================================================
+     SEND MESSAGE SECTION
+     ====================================================== -->
+<section class="message-section">
+  <div class="message-inner">
+    <p class="section-label">Ereyo qurux badan ii qor</p>
+    <h2 class="section-title">Fariin ii dir</h2>
+    <p class="section-subtitle">wax qurux badan ii qor ana waku dhagaysanaya</p>
+
+    <form id="love-form" onsubmit="sendMessage(event)" novalidate>
+      <div class="form-group">
+        <label for="from-name">magaca</label>
+        <input type="text" id="from-name" name="from_name" placeholder="Who should I be waiting for?" required/>
       </div>
-    </div>
-  </section>
-
-  <!-- ===== FINAL CTA SECTION ===== -->
-  <section class="cta-section">
-    <p class="section-label">Join the Community</p>
-    <h2 class="section-title"><em>Begin</em> Your Journey</h2>
-    <p class="section-body">
-      Create your account today to explore our full menu, save your favourite orders, and enjoy members-only rewards.
-    </p>
-    <div class="hero-cta-group">
-      <a href="register.html" class="btn-primary">
-        <i class="fa-solid fa-user-plus"></i> Create Account
-      </a>
-      <a href="login.html" class="btn-outline">
-        <i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In
-      </a>
-    </div>
-  </section>
-
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <i class="fa-solid fa-mug-hot"></i> Noir &amp; Brew
+      <div class="form-group">
+        <label for="msg-body">Your Message</label>
+        <textarea id="msg-body" name="message" placeholder="Pour out your heart here…" required></textarea>
       </div>
-      <div class="footer-links">
-        <a href="register.html" class="footer-link">Sign Up</a>
-        <a href="login.html" class="footer-link">Login</a>
-        <a href="home.html" class="footer-link">Menu</a>
-      </div>
-    </div>
-    <p class="footer-copy">&copy; 2024 Noir &amp; Brew Coffee House. All rights reserved.</p>
-  </footer>
 
+      <button type="submit" class="submit-btn" id="submit-btn">
+        <span id="btn-text">Send with Love</span> <span id="btn-icon">💌</span>
+      </button>
+
+      <p class="form-status" id="form-status"></p>
+    </form>
+  </div>
+</section>
+
+<!-- ======================================================
+     FOOTER
+     ====================================================== -->
+<footer>
+  Made with <span>♥</span> · Every word means it
+</footer>
+
+
+<!-- ======================================================
+     JAVASCRIPT
+     ====================================================== -->
+<script>
+/* ============================================================
+   ❶  EMAILJS CONFIGURATION
+   Replace the three placeholders below with your real credentials
+   from https://dashboard.emailjs.com
+   ============================================================ */
+const EMAILJS_PUBLIC_KEY  = '9TO7hHMapqy4U9kNz';   // ← paste your Public Key here
+const EMAILJS_SERVICE_ID  = 'service_j2uu8yq';   // ← paste your Service ID here
+const EMAILJS_TEMPLATE_ID = 'template_0tc14oe';  // ← paste your Template ID here
+
+/* Initialize EmailJS */
+(function(){
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+})();
+
+
+/* ============================================================
+   ❷  FLOATING HEARTS CANVAS
+   ============================================================ */
+(function(){
+  const canvas = document.getElementById('hearts-canvas');
+  const ctx = canvas.getContext('2d');
+  let hearts = [];
+
+  function resize(){
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function drawHeart(ctx, x, y, size, color, alpha){
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.bezierCurveTo(x, y - size * 0.3, x - size * 0.5, y - size * 0.8, x - size * 0.5, y - size * 0.5);
+    ctx.bezierCurveTo(x - size * 0.5, y - size * 1.1, x + size * 0.5, y - size * 1.1, x + size * 0.5, y - size * 0.5);
+    ctx.bezierCurveTo(x + size * 0.5, y - size * 0.8, x, y - size * 0.3, x, y);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function spawnHeart(){
+    return {
+      x: Math.random() * window.innerWidth,
+      y: window.innerHeight + 30,
+      size: 8 + Math.random() * 18,
+      speed: 0.5 + Math.random() * 1.2,
+      drift: (Math.random() - 0.5) * 0.6,
+      alpha: 0.12 + Math.random() * 0.28,
+      color: ['#e8547a','#f7a8bc','#c0395f','#ff8fab','#ffc2d4'][Math.floor(Math.random()*5)]
+    };
+  }
+
+  for(let i = 0; i < 18; i++){
+    const h = spawnHeart();
+    h.y = Math.random() * window.innerHeight;
+    hearts.push(h);
+  }
+
+  function animate(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    hearts.forEach(h => {
+      drawHeart(ctx, h.x, h.y, h.size, h.color, h.alpha);
+      h.y -= h.speed;
+      h.x += h.drift;
+    });
+    hearts = hearts.filter(h => h.y > -40);
+    if(hearts.length < 25 && Math.random() < 0.04) hearts.push(spawnHeart());
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+
+/* ============================================================
+   ❸  MODAL LOGIC
+   ============================================================ */
+function openModal(id){
+  const overlay = document.getElementById(id);
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  /* Animate poem stanzas when poem modal opens */
+  if(id === 'modal-poem'){
+    const stanzas = overlay.querySelectorAll('.poem-stanza');
+    stanzas.forEach((s, i) => {
+      s.classList.remove('visible');
+      setTimeout(() => s.classList.add('visible'), 300 + i * 220);
+    });
+  }
+
+  /* Start countdown ticker when countdown modal opens */
+  if(id === 'modal-countdown'){
+    tickCountdown();
+  }
+}
+
+function closeModal(id){
+  document.getElementById(id).classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+/* Close on overlay click (outside box) */
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', function(e){
+    if(e.target === this) closeModal(this.id);
+  });
+});
+
+/* Close on Escape key */
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){
+    document.querySelectorAll('.modal-overlay.active')
+      .forEach(el => closeModal(el.id));
+  }
+});
+
+
+/* ============================================================
+   ❹  COUNTDOWN TIMER
+   ============================================================ */
+/* ============================================================
+   ❹  COUNTDOWN TIMER (TAARIIKHDA TOOS U DIYAARSAN)
+   ============================================================ */
+// Sxb, halkan ku qor taariikhda aad rabto (Sanadka-Bisha-Maalinta)
+// Tusaale ahaan: '2026-07-25' ayaan kuugu joray, waad badali kartaa sxb.
+let countdownTarget = new Date('2032-07-25T00:00:00'); 
+
+// Ticker-ka si toos ah ayuu u bilaabanayaa hadda
+let countdownInterval = setInterval(tickCountdown, 1000);
+tickCountdown(); 
+
+function tickCountdown(){
+  if(!countdownTarget) return;
+  const now  = new Date();
+  const diff = countdownTarget - now;
+  
+  if(diff <= 0){
+    document.getElementById('cd-days').textContent  = '00';
+    document.getElementById('cd-hours').textContent = '00';
+    document.getElementById('cd-mins').textContent  = '00';
+    document.getElementById('cd-secs').textContent  = '00';
+    document.getElementById('cd-msg').textContent   = 'The moment has arrived! 🎉♥';
+    clearInterval(countdownInterval);
+    return;
+  }
+  
+  const d = Math.floor(diff / (1000*60*60*24));
+  const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+  const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+  const s = Math.floor((diff % (1000*60)) / 1000);
+
+  document.getElementById('cd-days').textContent  = String(d).padStart(2,'0');
+  document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
+  document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
+
+  // Ereyada dhiiri-gelinta ah ee hoos ku qormaya
+  const msgs = [
+    `Wahtiga ${d} maalmood aan is arki doono ama riyadeena ku rumoobayso ♥`,
+    `${d} sleeps to go… I'm already counting ♥`,
+    `Every second brings me closer to you ♥`
+  ];
+  document.getElementById('cd-msg').textContent = msgs[d % msgs.length];
+}
+
+/* ============================================================
+   ❺  EMAILJS — SEND MESSAGE
+   ============================================================ */
+function sendMessage(e){
+  e.preventDefault();
+
+  const btn     = document.getElementById('submit-btn');
+  const btnText = document.getElementById('btn-text');
+  const btnIcon = document.getElementById('btn-icon');
+  const status  = document.getElementById('form-status');
+
+  /* Basic validation */
+  const name  = document.getElementById('from-name').value.trim();
+  const msg   = document.getElementById('msg-body').value.trim();
+
+  if(!name || !msg){
+    status.className = 'form-status error';
+    status.textContent = 'boqoradyda wax ku qurux badan ii qor♥';
+    return;
+  }
+
+  btn.disabled = true;
+  btnText.textContent = 'Sending…';
+  btnIcon.textContent = '⏳';
+  status.textContent = '';
+
+  emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, '#love-form')
+    .then(() => {
+      status.className = 'form-status success';
+      status.textContent = 'waku mahadsan tahay boqoraydii fariinta quruxda badan ♥';
+      btnText.textContent = 'Sent!';
+      btnIcon.textContent = '✓';
+      document.getElementById('love-form').reset();
+      setTimeout(() => {
+        btn.disabled = false;
+        btnText.textContent = 'Send with Love';
+        btnIcon.textContent = '💌';
+      }, 4000);
+    })
+    .catch(err => {
+      console.error('EmailJS error:', err);
+      status.className = 'form-status error';
+      status.textContent = 'sorry waxbaa khaldan';
+      btn.disabled = false;
+      btnText.textContent = 'Send with Love';
+      btnIcon.textContent = '💌';
+    });
+}
+/* ============================================================
+   MUSIC PLAYER LOGIC (GIFT 2) - HALKAS KU BADAL
+   ============================================================ */
+let songsList = [
+  { title: "Heesta Jacaylka 1", artist: "Fanaanka 1", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+  { title: "Heesta Jacaylka 2", artist: "Fanaanka 2", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+  { title: "Muuqaalka Naftayda", artist: "Fanaanka 3", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" }
+];
+
+let currentSongIndex = 0;
+const audioObj = document.getElementById('main-audio');
+
+function selectSong(index, title, artist, src) {
+  currentSongIndex = index;
+  audioObj.src = src;
+  document.getElementById('current-song-title').textContent = title;
+  document.getElementById('current-song-artist').textContent = artist;
+  
+  // Bedel falka Playlist Active class
+  let items = document.querySelectorAll('.playlist-item');
+  items.forEach(item => item.classList.remove('active-song'));
+  items[index].classList.add('active-song');
+  
+  playAudio();
+}
+
+function togglePlay() {
+  if (!audioObj.src) {
+    // Haddii aan hees la dooran, qaado heesta ugu horreysa
+    selectSong(0, songsList[0].title, songsList[0].artist, songsList[0].src);
+    return;
+  }
+  
+  if (audioObj.paused) {
+    playAudio();
+  } else {
+    pauseAudio();
+  }
+}
+
+function playAudio() {
+  audioObj.play();
+  document.getElementById('play-btn').innerHTML = '<i class="fas fa-pause"></i>';
+  document.getElementById('music-disc').classList.add('playing');
+  document.getElementById('music-waves').classList.add('playing');
+}
+
+function pauseAudio() {
+  audioObj.parse(); // Ama audioObj.pause();
+  audioObj.pause();
+  document.getElementById('play-btn').innerHTML = '<i class="fas fa-play"></i>';
+  document.getElementById('music-disc').classList.remove('playing');
+  document.getElementById('music-waves').classList.remove('playing');
+}
+
+function nextSong() {
+  currentSongIndex = (currentSongIndex + 1) % songsList.length;
+  let s = songsList[currentSongIndex];
+  selectSong(currentSongIndex, s.title, s.artist, s.src);
+}
+
+function prevSong() {
+  currentSongIndex = (currentSongIndex - 1 + songsList.length) % songsList.length;
+  let s = songsList[currentSongIndex];
+  selectSong(currentSongIndex, s.title, s.artist, s.src);
+}
+
+// Markay heestu dhammaato si toos ah u shid heesta xigta
+audioObj.addEventListener('ended', nextSong);
+
+</script>
 </body>
-          </html>
+</html>
+
