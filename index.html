@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geli Password-ka</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffe6eb 0%, #ffb3c1 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Login Card Container */
+        .login-container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(255, 75, 110, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.4s ease;
+        }
+
+        .avatar-box {
+            width: 80px;
+            height: 80px;
+            background: #ff4b6e;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 20px rgba(255, 75, 110, 0.3);
+        }
+
+        .avatar-box i {
+            color: white;
+            font-size: 32px;
+        }
+
+        h2 {
+            color: #4a4a4a;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        p {
+            color: #7a7a7a;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        /* Input Styling */
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff4b6e;
+            font-size: 18px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 15px 15px 50px;
+            border: 2px solid #ffe6eb;
+            border-radius: 50px;
+            outline: none;
+            font-size: 16px;
+            background: #fff;
+            color: #4a4a4a;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #ff4b6e;
+            box-shadow: 0 0 10px rgba(255, 75, 110, 0.1);
+        }
+
+        /* Button Styling */
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff4b6e, #ff758c);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 75, 110, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 75, 110, 0.4);
+        }
+
+        /* Error Message */
+        .error-msg {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* Screen Loading Overlay */
+        .loader-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            display: none;
+        }
+
+        .heart-loader {
+            font-size: 50px;
+            color: #ff4b6e;
+            animation: beat 0.8s infinite alternate;
+        }
+
+        .loader-text {
+            margin-top: 15px;
+            color: #ff4b6e;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        /* Keyframes Animations */
+        @keyframes beat {
+            to { transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="loader-overlay" id="loaderOverlay">
+            <i class="fas fa-heart heart-loader"></i>
+            <div class="loader-text">Waa laguu xaqiijiyay, fadlan sug...</div>
+        </div>
+
+        <div class="avatar-box">
+            <i class="fas fa-lock"></i>
+        </div>
+        <h2>Bog khaas ah</h2>
+        <p>Bogaan waxa khaas u yahay quruxlaydayda</p>
+
+        <div class="input-group">
+            <i class="fas fa-key"></i>
+            <input type="password" id="passwordInput" placeholder="Geli Password-ka...">
+        </div>
+
+        <button class="login-btn" onclick="checkPassword()">Fur Bogga</button>
+        <div class="error-msg" id="errorMsg">Macaan, password-ku waa khalad! Iska hubi.</div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput').value;
+            const errorMsg = document.getElementById('errorMsg');
+            const loaderOverlay = document.getElementById('loaderOverlay');
+
+            // 1. Halkaan waxaan ka dhignay Array (Liis xiran oo koomikooyin ku kala dhex jiraan)
+            const correctPasswords = ["Najmo", "najmo", "NAJMO"]; 
+
+            // 2. Halkaan waxaan u beddelnay .includes() si uu u eego dhamaantood
+            if (correctPasswords.includes(passwordInput)) {
+                // Haddii uu sax yahay: quri khalaadka, tusi loading-ka
+                errorMsg.style.display = "none";
+                loaderOverlay.style.display = "flex";
+
+                // Sugitaan 3 ilbiriqsi ah (3000ms) ka dibna u gey boga love.html
+                setTimeout(function() {
+                    window.location.href = "love.html";
+                }, 3000);
+
+            } else {
+                // Haddii uu khalad yahay: tusi fariinta khalaadka
+                errorMsg.style.display = "block";
+                document.getElementById('passwordInput').style.borderColor = "#e74c3c";
+            }
+        }
+
+        // Si badhanka Enter uu isna u shaqeeyo marka la taabto
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+</html>
+
